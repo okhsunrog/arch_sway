@@ -78,9 +78,8 @@ partprobe
 sync
 sleep 3
 mkfs.fat -I -F32 -n EFI /dev/disk/by-partlabel/EFI
-read -sp 'Encryption password: ' cryptpass
-echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
-echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem cryptroot
+cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
+cryptsetup open /dev/disk/by-partlabel/cryptsystem cryptroot
 mkfs.btrfs -f -L system /dev/mapper/cryptroot
 sync
 
