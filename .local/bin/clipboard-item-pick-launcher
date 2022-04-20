@@ -1,0 +1,2 @@
+#/bin/bash
+footclient -a launcher ~/.local/bin/clipboard-item-pick

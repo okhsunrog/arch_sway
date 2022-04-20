@@ -1,0 +1,18 @@
+#!/bin/bash
+# uses https://github.com/rachmadaniHaryono/we-get
+
+we-get --target=1337x,eztv,the_pirate_bay,yts --search "$1" -J -q 1080p > /tmp/search_torrent
+sed -i '/^#/d' /tmp/search_torrent
+a=$(cat /tmp/search_torrent | jq 'del(.[].link) | del (.[].target) | del (.[].user_status) | del (.[].leeches) | del (.[].seeds) | del (.[].size)' | sed '1 d' | sed '$ d' | cut -f 2 -d "\"" | fzf --preview-window down,21% --preview 'tempp=$(echo {} | cut -f 2 -d "\""); echo "seeds: "; jq ".\"$tempp\".seeds" /tmp/search_torrent; echo "size: "; jq ".\"$tempp\".size" /tmp/search_torrent')
+a=$(echo "${a#*\"*}")
+a=$(echo "${a%\"*}")
+a="\"$a\""
+a=$(cat /tmp/search_torrent | jq ".$a.link")
+a=$(echo $a | sed -e 's/^"//' -e 's/"$//')
+rm /tmp/search_torrent
+if [[ ${#a} -gt 8 ]]; then
+      echo "$a"
+else
+      echo "Exiting..."
+fi
+

@@ -1,0 +1,2 @@
+#!/bin/bash
+emoji-fzf preview | fzf --preview 'emoji-fzf get {1}' | emoji-fzf get | cut -d " " -f 1 | wl-copy

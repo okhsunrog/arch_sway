@@ -1,0 +1,64 @@
+[icons]
+name = "awesome5"
+[icons.overrides]
+cpu = "\uf625"
+
+[theme]
+name = "solarized-dark"
+[theme.overrides]
+idle_bg = "#002b36"
+idle_fg = "#93a1a1"
+info_bg = "#2aa198"
+info_fg = "#002b36"
+good_bg = "#859900"
+good_fg = "#002b36"
+warning_bg = "#b58900"
+warning_fg = "#002b36"
+critical_bg = "#dc322f"
+critical_fg = "#002b36"
+
+[[block]]
+block = "focused_window"
+max_width = 50
+show_marks = "visible"
+
+[[block]]
+block = "temperature"
+collapsed = false
+interval = 3
+format = "{average}"
+chip = "*-isa-*"
+
+[[block]]
+block = "sound"
+on_click = "pavucontrol"
+step_width = 1
+device_kind = "sink"
+
+[[block]]
+block = "networkmanager"
+on_click = "footclient --app-id=nmtui --title='Network configuration' nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+", "veth[0-9a-f]"]
+interface_name_include = []
+device_format = "{icon}{ap}"
+
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+sway_kb_identifier = "1:1:AT_Translated_Set_2_keyboard"
+[block.mappings]
+"English (US)" = "🇺🇸"
+"Russian (N/A)" = "🇷🇺"
+
+
+[[block]]
+block = "battery"
+device = "BAT0"
+driver = "sysfs"
+format = "{percentage}"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%R"
+

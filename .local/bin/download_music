@@ -1,0 +1,3 @@
+#!/bin/bash
+notify-send --urgency=low "Downloading song..."
+footclient ~/.local/bin/download_music_simple

@@ -1,0 +1,2 @@
+#!/bin/bash
+ grim -g  "$(slurp -p | sed  '$s/\w*$//') 4x1" -t png - | convert - -format '%[pixel:p{1,1}]' txt:-   | tail -n 1 | cut -d ' ' -f 4 | wl-copy -n

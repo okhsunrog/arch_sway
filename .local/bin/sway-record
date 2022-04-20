@@ -1,0 +1,242 @@
+#!/bin/bash
+# Sway WM screen + audio recorder
+# original author: Aaron D. Fields
+# blog post: https://blog.spirotot.com/2017/08/21/a-dirty-hack-to-enable-acceptable-sway-wm-screen-recording/
+# 
+#
+# Updated version: ernierasta
+# Repo: https://gist.github.com/ernierasta
+# 
+#
+# Changelog:
+#       - switched to wf-recorder (https://github.com/ammen99/wf-recorder), swaygrab do not work anymore
+#       - switched to pulseaudio sound recording, this will allow us to record specific streams to separate
+#         files and to capture sounds from apps and microphone
+#       - added option to run set output without -o parameter
+#       - script will keep temporary files, they can be useful for manual merge (volume adjustments, cuts, ...)
+#         in something like openshot
+#       - more documentation
+#       - added -n option to disable post-processing (video resizing + audio,video merging)
+#
+# Usage: sway-record -d [display] -a [app audio sink] -m [mic audio sink]  -o [project_output_name] -n
+#       or alternatively:
+#       sway-record project_output_name
+#
+# When you finish recording, pres CTRL+C and it will stop all processes.
+#
+# -n option allows to disable post-processing entirely
+#
+#
+# INSTALL & SETTINGS:
+#
+# Copy this file as /usr/local/bin/sway-recorder or to any other dir in your $PATH.
+#
+# Displays can be listed with:
+#
+#   swaymsg -t get_outputs
+#
+# PulseAudio sinks can be listed by: parecord -d <TAB> or:
+#
+#   pacmd list-source-outputs | grep "source" | grep -oP "<\K[^ >]+"
+# 
+# Dependencies: ffmpeg, pulseaudio, wf-recorder
+#
+# WARNING: you probably need to compile wf-recorder, follow instructions on project page(https://github.com/ammen99/wf-recorder).
+#
+# Example: sway-record -d DP-1 -a alsa_output.pci-0000_21_00.3.analog-stereo.monitor -m alsa_input.usb-audio-technica____AT2020_USB-00.analog-stereo my_recording
+#
+# Note: If this file is sorely out of date, it's either no longer relevant,
+# and/or I decided to push changes here: https://github.com/Spirotot/dotFiles
+# Note 2: Maybe I am blind ... do not see this in repo. ;-) ErnieRasta
+# Note 3: This in no more outdated! Works with sway 1.0 RC5
+
+# You can define some defaults, which is very convinient...
+DISP="eDP-1"
+AUDIO_APP="alsa_output.pci-0000_00_1b.0.analog-stereo.monitor"
+AUDIO_MIC="alsa_input.pci-0000_00_1b.0.analog-stereo"
+OUTPUT="record_$(date +%FT%T)"
+
+# change to true if you want to disable post-processing entirely
+NO_PROCESSING=false
+
+# You probably want to leave vars below empty
+SCREEN_CMD=""
+AUDIO_APP_CMD=""
+AUDIO_MIC_CMD=""
+
+# These for sure should be empty!
+SCREEN_PID=""
+AUDIO_APP_PID=""
+AUDIO_MIC_PID=""
+START=""
+
+# Set a trap for Ctrl+C (SIGINT) so that we can forward the
+# Ctrl+C to the `swaygrab` and `arecord` subprocesses.
+# Inspired by: https://stackoverflow.com/questions/8993655/can-a-bash-script-run-simultaneous-commands-then-wait-for-them-to-complete
+trap killandconvert SIGINT
+
+# `killandconvert()` kills the `swaygrab` and `arecord` subprocesses
+# when Ctrl+C is pressed, and then proceeds to fix up the length
+# discrepencies, and create the final output MKV.
+killandconvert() {
+        # Forward the SIGINT to `swagrab` and `arecord` so they can shut
+        # themselves down properly. 
+        kill -2 $SCREEN_PID
+        kill -2 $AUDIO_APP_PID
+        kill -2 $AUDIO_MIC_PID
+
+        # Wait for them to exit...
+        wait $AUDIO_APP_PID
+        wait $AUDIO_MIC_PID
+        wait $SCREEN_PID
+
+        if [ "$NO_PROCESSING" = true ]; then
+                return
+        fi
+
+        # Get the lengths:
+        #         * https://forum.videolan.org/viewtopic.php?t=56438
+        #         * https://stackoverflow.com/questions/20323640/ffmpeg-deocde-without-producing-output-file
+        # Convert the lengths with awk: https://askubuntu.com/questions/407743/convert-time-stamp-to-seconds-in-bash
+        SCREEN_LENGTH=`ffmpeg -i ${OUTPUT}_orig.mkv -f null /dev/null 2>&1 | \
+                                   grep Duration | awk '{print $2}' | tr -d "," | \
+                                   awk -F: '{print ($1 * 3600) + ($2 * 60) + $3}'`
+
+        if [ "$START" = "" ]; then
+                AUDIO_LENGTH=`ffmpeg -i ${OUTPUT}_app_orig.wav -f null /dev/null 2>&1 | \
+                                          grep Duration | awk '{print $2}' | tr -d "," | \
+                                          awk -F: '{print ($1 * 3600) + ($2 * 60) + $3}'`
+        else
+                # https://unix.stackexchange.com/questions/53841/how-to-use-a-timer-in-bash
+                AUDIO_LENGTH=$((SECONDS - START))
+        fi
+
+        # Calculate the multiplier used to sync the video to the audio.
+        # https://stackoverflow.com/questions/12722095/how-do-i-use-floating-point-division-in-bash
+        MULTIPLIER=`bc -l <<< "scale=8; $AUDIO_LENGTH/$SCREEN_LENGTH"`
+
+        # "Sync" the video to the audio by stretching it.
+        # https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video
+        `ffmpeg -i ${OUTPUT}_orig.mkv -filter:v "setpts=${MULTIPLIER}*PTS" \
+        -preset ultrafast ${OUTPUT}_tmp.mkv`
+
+        if [ "$START" = "" ]; then
+                # Combine the video and audio streams into one output file.
+        # mixing: https://stackoverflow.com/questions/50168993/merging-2-audios-files-with-a-video-in-ffmpeg
+                `ffmpeg -i ${OUTPUT}_tmp.mkv \
+                -i ${OUTPUT}_app_orig.wav \
+                -i ${OUTPUT}_mic_orig.wav \
+                -filter_complex "[1][2]amix=inputs=2[a]" \
+                -map 0:v -map "[a]" \
+                -c:v copy -c:a aac ${OUTPUT}.mkv`
+        else
+                # If there is no audio stream, then just rename the video stream
+                # as the final outout file.
+                mv ${OUTPUT}_tmp.mkv ${OUTPUT}.mkv
+        fi
+
+        # Cleanup
+        rm -f ${OUTPUT}_orig.mkv
+        rm -f ${OUTPUT}_tmp.mkv
+        rm -f ${OUTPUT}_orig.wav
+        rm -f ${OUTPUT}_app_orig.wav
+        rm -f ${OUTPUT}_mic_orig.wav
+        mv ${OUTPUT}.mkv ~/Videos/records
+}
+
+# mandatory trick to enable non-option parameter
+# https://stackoverflow.com/questions/21753340/script-with-non-option-and-option-arguments
+mandatory=()
+# Parse the command line options...
+# http://abhipandey.com/2016/03/getopt-vs-getopts/
+while [ $# -gt 0 ] && [ "$1" != "--" ]; do
+        while getopts d:a:m:o:n FLAG; do
+                case $FLAG in
+                        d)
+                                DISP=$OPTARG
+                                ;;
+                        a)
+                                AUDIO_APP=$OPTARG
+                                ;;
+                        m)
+                                AUDIO_MIC=$OPTARG
+                                ;;
+                        o)
+                                OUTPUT=$OPTARG
+                                ;;
+                        n)
+                                NO_PROCESSING=true
+                                echo "NO PROCESSING!"
+                                ;;
+                esac
+        done
+        shift $((OPTIND-1))
+
+        while [ $# -gt 0 ] && ! [[ "$1" =~ ^- ]]; do
+                mandatory=("${mandatory[@]}" "$1") 
+                shift                                                                                                       
+        done
+done
+
+if [ "$1" == "--" ]; then
+        shift
+        mandatory=("${mandatory[@]}" "$@")
+fi
+
+if [ "${mandatory[0]}" != "" ]; then
+        echo ${mandatory[0]}
+        OUTPUT=${mandatory[0]}
+fi
+
+# Check the user's options to make sure they're somewhat sane.
+if [ "$OUTPUT" = "" ]; then
+        echo "No output specified."
+        exit 1
+fi
+
+if [ "$DISP" = "" ]; then
+        echo "No display specified."
+        exit 1
+else
+        # Build the command used for screen recording.
+        SCREEN_CMD="wf-recorder -o $DISP -f ${OUTPUT}_orig.mkv"
+fi
+
+# Build the command used for app audio recording.
+AUDIO_APP_CMD="parecord -d ${AUDIO_APP} ${OUTPUT}_app_orig.wav"
+AUDIO_MIC_CMD="parecord -d ${AUDIO_MIC} ${OUTPUT}_mic_orig.wav"
+# Start the screen recorder...
+$SCREEN_CMD &
+# ... and save the PID so we can kill it gracefully later.
+SCREEN_PID=$!
+
+if [ ! "$AUDIO_APP_CMD" = "" ]; then
+        # Start the audio recorder...
+        $AUDIO_APP_CMD &
+        # ... and save the PID so we can kill it gracefully later.
+        AUDIO_APP_PID=$!
+else
+        # Unless we're not going to record audio, in which case we'll
+        # simply use a timer to figure out how much we need to stretch
+        # the video...
+        # https://unix.stackexchange.com/questions/53841/how-to-use-a-timer-in-bash
+        START=$SECONDS
+fi
+
+if [ ! "$AUDIO_MIC_CMD" = "" ]; then
+        # Start the audio recorder...
+        $AUDIO_MIC_CMD &
+        # ... and save the PID so we can kill it gracefully later.
+        AUDIO_MIC_PID=$!
+else
+        # Unless we're not going to record audio, in which case we'll
+        # simply use a timer to figure out how much we need to stretch
+        # the video...
+        # https://unix.stackexchange.com/questions/53841/how-to-use-a-timer-in-bash
+        START=$SECONDS
+fi
+
+
+
+# Just hang out until the user presses Ctrl+C
+wait

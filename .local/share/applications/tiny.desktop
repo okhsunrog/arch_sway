@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Tiny
+Exec=footclient -a tiny tiny

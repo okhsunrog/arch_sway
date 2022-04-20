@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Ytop
+Comment=Resource Monitor
+Icon=utilities-terminal
+Exec=footclient -T ytop -a ytop ytop
+Categories=System;Monitor;ConsoleOnly;

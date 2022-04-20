@@ -1,0 +1,173 @@
+set $LOC ~/.local/bin/
+
+#Autostart
+exec "foot --server"
+exec swaykbdd
+exec mako
+exec $LOC/timeout_run
+exec mpris-proxy
+exec udiskie
+exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste -p -t text --watch clipman store -P --no-persist --histpath="~/.local/share/clipman-primary.json"
+#exec dex -ae Sway
+#exec $LOC/start_zoom
+exec xrdb -load ~/.Xresources
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec wlr-sunclock \
+   --margins "0,16,0,16" \
+   --width 300 \
+   --layer bottom \
+   --anchors br \
+   --border-width 2 \
+   --colour-ocean "#002B36" \
+   --colour-land "#2AA198"
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme NumixSolarizedDarkCyan
+    gsettings set $gnome-schema icon-theme Numix
+}
+
+#Output configuration
+output eDP-1 {
+	res 1920x1080@60.020Hz
+	background /home/$USER/Pictures/Wallpapers/desktop.png fill
+	pos 0 0
+	scale 1.5
+}
+
+output HDMI-A-1 {
+        background /home/$USER/Pictures/Wallpapers/desktop.png fill
+	pos 1280 0
+}
+
+output "Unknown Redmi Monitor 2804800519652" res 1920x1080@74.986Hz
+
+#Position of workspaces
+
+
+workspace 1 output HDMI-A-1
+workspace 2 output HDMI-A-1
+workspace 3 output HDMI-A-1
+workspace 4 output HDMI-A-1
+workspace 5 output HDMI-A-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+
+input "1739:52599:SYNA308F:00_06CB:CD77_Touchpad" {
+  tap enabled
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_layout "us,ru"
+  xkb_options "caps:swapescape,grp:toggle,grp:rctrl_toggle,altwin:swap_lalt_lwin"
+}
+
+input "1133:49948:Logitech_USB_Keyboard" {
+  xkb_layout "us,ru"
+  xkb_numlock enabled
+  xkb_options "caps:swapescape,grp:rwin_toggle,grp:menu_toggle,grp:toggle,altwin:swap_lalt_lwin"
+}
+
+
+exec swayidle -w \
+          before-sleep $LOC/lock
+
+#Bars configuration
+bar {
+font pango: Menlo for Powerline, Font Awesome 6 Free 12
+    position top
+    output HDMI-A-1
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config2.toml
+    colors {
+        separator #002B36
+        background #002B36
+        statusline #002B36
+        focused_workspace #2AA198 #2AA198 #ffffff
+        active_workspace #002B36 #002B36 #ffffff
+        inactive_workspace #002B36 #002B36 #888888
+#        urgent_workspace #DC322F #DC322F #ffffff
+    }
+    tray_output none
+}
+
+bar {
+font pango: Menlo for Powerline, Font Awesome 6 Free 12
+    position top
+    output eDP-1
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    colors {
+        separator #002B36
+        background #002B36
+        statusline #002B36
+        focused_workspace #2AA198 #2AA198 #ffffff
+        active_workspace #002B36 #002B36 #ffffff
+        inactive_workspace #002B36 #002B36 #888888
+#        urgent_workspace #DC322F #DC322F #ffffff
+    }
+    tray_output none
+}
+
+
+client.focused #af005f #af005f #af005f
+client.focused_inactive #3b5998 #3b5998 #3b5998
+client.unfocused #5f5faf #5f5faf #5f5faf 
+
+
+#Windows' configuration
+for_window [app_id="floationg-foot"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+for_window [app_id="nmtui"] floating enable
+for_window [title="Device connected - Mozilla Firefox"] floating enable
+for_window [app_id="nvim"] floating enable
+for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
+for_window [title="Picture in picture"] floating enable
+for_window [title="Picture-in-Picture" app_id="firefox"] sticky enable
+for_window [title="Picture in picture"] sticky enable
+for_window [title="win0"] floating enable
+for_window [title="Open Files"] floating enable
+for_window [title="Settings"] floating enable
+for_window [title="Save File"] floating enable
+for_window [title="Copy Files"] floating enable
+for_window [title="Choose Files"] floating enable
+for_window [title="Welcome to PyCharm"] floating enable
+for_window [title="Import PyCharm Settings"] floating enable
+for_window [title="Import CLion Settings"] floating enable
+for_window [title="Import WebStorm Settings"] floating enable
+for_window [title="Welcome to WebStorm"] floating enable
+for_window [class="Skype"] floating enable
+for_window [title="Welcome to CLion"] floating enable
+for_window [title="Import IntelliJ IDEA Settings"] floating enable
+for_window [title="License Activation"] floating enable
+for_window [title="Welcome to IntelliJ IDEA"] floating enable
+for_window [title="Welcome to RubyMine"] floating enable
+for_window [title="Import RubyMine Settings"] floating enable
+for_window [title="discord.com is sharing your screen."] floating enable
+for_window [title="Emulator"] floating enable
+for_window [title="File Properties"] floating enable
+for_window [title="Android Emulator*"] floating enable
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 40 ppt, border pixel 5
+for_window [app_id="zoom" title="^zoom$"] border none, floating enable
+for_window [app_id="zoom" title="^(Zoom|About)$"] floating enable
+for_window [app_id="zoom" title="Settings"] floating enable
+
+
+
+default_floating_border pixel 3
+default_border pixel 2
+smart_gaps on
+smart_borders on
+gaps inner 5
+gaps outer 3
+titlebar_border_thickness 0
+
+include ~/.config/sway/key_bindings
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP

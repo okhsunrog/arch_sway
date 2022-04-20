@@ -1,0 +1,2 @@
+#/bin/bash
+clipman clear --print0 --tool=CUSTOM --tool-args="fzf --prompt 'pick > ' --bind 'tab:up' --cycle --read0"

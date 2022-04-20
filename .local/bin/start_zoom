@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "start 1"
+nohup zoom &> /dev/null &
+sleep 1
+swaymsg workspace number 10
+sleep 3
+swaymsg kill
+sleep 2
+nohup zoom &>/dev/null &
+sleep 3
+swaymsg kill
+sleep 1
+swaymsg workspace number 1

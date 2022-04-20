@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Oracle VM VirtualBox
+GenericName=Virtual Machine
+Type=Application
+Exec=env QT_QPA_PLATFORMTHEME=1 /usr/bin/virtualbox %U
+Keywords=virtualization;
+MimeType=application/x-virtualbox-vbox;application/x-virtualbox-vbox-extpack;application/x-virtualbox-ovf;application/x-virtualbox-ova;
+DocPath=file:///usr/share/doc/virtualbox/UserManual.pdf
+Icon=virtualbox
+Categories=Emulator;System;
+Actions=Manager;
+StartupWMClass=VirtualBox Manager
+Comment=Run several virtual systems on a single host computer
