@@ -30,11 +30,11 @@ Include = /etc/pacman.d/mirrorlist
 Include = /etc/pacman.d/chaotic-mirrorlist
 
 [okhsunrog-aur]
-Server = https://okhsunrog.ru/$repo/$arch
+Server = https://okhsunrog.ru/$repo
 SigLevel = PackageOptional
 
 [okhsunrog-repo]
-Server = https://okhsunrog.ru/$repo/$arch
+Server = https://okhsunrog.ru/$repo
 SigLevel = PackageOptional' >> /etc/pacman.conf
 pacman -Syyuu
 
