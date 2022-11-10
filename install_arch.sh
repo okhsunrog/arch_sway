@@ -74,7 +74,7 @@ w
 y
 EOF
 sleep 1
-partprobe
+partprobe $_drive
 sync
 sleep 3
 mkfs.fat -I -F32 -n EFI /dev/disk/by-partlabel/EFI
