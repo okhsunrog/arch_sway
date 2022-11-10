@@ -30,12 +30,12 @@ Include = /etc/pacman.d/mirrorlist
 Include = /etc/pacman.d/chaotic-mirrorlist
 
 [okhsunrog-aur]
-Server = https://okhsunrog.ru/$repo
-SigLevel = PackageOptional
+SigLevel = Never
+Server = https://okhsunrog.ru/repos/$repo
 
 [okhsunrog-repo]
-Server = https://okhsunrog.ru/$repo
-SigLevel = PackageOptional' >> /etc/pacman.conf
+SigLevel = Never
+Server = https://okhsunrog.ru/repos/$repo' >> /etc/pacman.conf
 pacman -Syyuu
 
 pacman -S archlinux-keyring --noconfirm
