@@ -107,7 +107,7 @@ mount -o subvol=@log,$o LABEL=system /mnt/install/var/log
 mount -o subvol=@vm,$o LABEL=system /mnt/install/vm
 mount -o subvol=@cache,$o LABEL=system /mnt/install/var/cache
 mount -o subvol=@docker,$o LABEL=system /mnt/install/var/lib/docker
-mount -o X-mount.mkdir LABEL=EFI /mnt/install/boot
+mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
 mkdir /mnt/install/etc
 genfstab -L /mnt/install > /mnt/install/etc/fstab
 pacstrap /mnt/install base base-devel linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager

@@ -41,11 +41,30 @@ pacman -Syyuu
 pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers --noconfirm
 
 #--------------------
-
+mkdir -p /efi/boot
 echo 'MODULES=""
 BINARIES=""
 FILES=""
-HOOKS="base udev autodetect modconf block encrypt filesystems keyboard fsck"' > /etc/mkinitcpio.conf
+HOOKS="base udev autodetect modconf block encrypt filesystems keyboard fsck"
+COMPRESSION="zstd"' > /etc/mkinitcpio.conf
+
+echo 'ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/vmlinuz-linux-okhsunrog"
+ALL_microcode="/boot/*-ucode.img"
+
+PRESETS=('default')
+
+default_image="/boot/initramfs-linux-okhsunrog.img"
+default_efi_image="/efi/boot/bootx64.efi"
+default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
+
+#fallback_config="/etc/mkinitcpio.conf"
+fallback_image="/boot/initramfs-linux-okhsunrog-fallback.img"
+fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
+
+echo "root=LABEL=system rootflags=subvol=@ cryptdevice=PARTLABEL=cryptsystem:cryptroot:allow-discards rw" > /etc/kernel/cmdline
+rm /boot/initramfs*
+mkinitcpio -p linux-okhsunrog
 
 echo "EDITOR=nvim" >> /etc/environment
 echo "LOCALE=en_US.UTF-8
@@ -55,7 +74,6 @@ CONSOLEMAP=
 TIMEZONE=Europe/Moscow
 HARDWARECLOCK=UTC
 USECOLOR=yes" > /etc/vconsole.conf
-mkinitcpio -P
 
 #--------------------------------------------
 
@@ -135,18 +153,6 @@ systemctl enable earlyoom
 #mkswap /swap/swapfile
 #swapon /swap/swapfile
 #echo "/swap/swapfile          none            swap            defaults        0 0" >> /etc/fstab
-
-#--------------------------------
-
-echo "Installing bootloader..."
-bootctl --path=/boot install
-echo "default arch.conf
-editor  no" > /boot/loader/loader.conf
-echo "title           Arch Linux
-linux           /vmlinuz-linux-okhsunrog
-initrd          /intel-ucode.img
-initrd          /initramfs-linux-okhsunrog.img
-options         root=LABEL=system rootflags=subvol=@ cryptdevice=PARTLABEL=cryptsystem:cryptroot:allow-discards rw" > /boot/loader/entries/arch.conf
 
 #---------------------------------
 
