@@ -62,7 +62,7 @@ default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 fallback_image="/boot/initramfs-linux-okhsunrog-fallback.img"
 fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
 
-echo "root=LABEL=system rootflags=subvol=@ cryptdevice=PARTLABEL=cryptsystem:cryptroot:allow-discards rw" > /etc/kernel/cmdline
+echo "root=LABEL=system rootflags=subvol=@ cryptdevice=PARTLABEL=cryptsystem:cryptroot:allow-discards bgrt_disable rw" > /etc/kernel/cmdline
 rm /boot/initramfs*
 mkinitcpio -p linux-okhsunrog
 
