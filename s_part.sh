@@ -143,9 +143,9 @@ bootctl --path=/boot install
 echo "default arch.conf
 editor  no" > /boot/loader/loader.conf
 echo "title           Arch Linux
-linux           /vmlinuz-linux-lts
+linux           /vmlinuz-linux-okhsunrog
 initrd          /intel-ucode.img
-initrd          /initramfs-linux-lts.img
+initrd          /initramfs-linux-okhsunrog.img
 options         root=LABEL=system rootflags=subvol=@ cryptdevice=PARTLABEL=cryptsystem:cryptroot:allow-discards rw" > /boot/loader/entries/arch.conf
 
 #---------------------------------
