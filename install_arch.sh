@@ -110,7 +110,7 @@ mount -o subvol=@docker,$o LABEL=system /mnt/install/var/lib/docker
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/boot
 mkdir /mnt/install/etc
 genfstab -L /mnt/install > /mnt/install/etc/fstab
-pacstrap /mnt/install base base-devel linux-lts linux-lts-headers linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
+pacstrap /mnt/install base base-devel linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
 
 #-----------------------------
 
