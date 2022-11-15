@@ -100,12 +100,12 @@ zpool import -d /dev/disk/by-partlabel/rootpart -R /mnt/install zroot -N
 zfs mount zroot/ROOT/default
 zfs mount -a
 zpool set cachefile=/etc/zfs/zpool.cache zroot
+mkdir -p /mnt/install/etc/zfs/
 cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 
 #------------------------------
 
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
-mkdir /mnt/install/etc
 genfstab -L /mnt/install > /mnt/install/etc/fstab
 pacstrap /mnt/install base base-devel linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
 
