@@ -41,7 +41,6 @@ pacman -Syyuu
 pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers zfs-utils-okhsunrog --noconfirm
 
 #--------------------
-mkdir -p /efi/efi/boot
 echo 'MODULES=""
 BINARIES=""
 FILES=""
@@ -55,7 +54,7 @@ ALL_microcode="/boot/*-ucode.img"
 PRESETS=('default')
 
 default_image="/boot/initramfs-linux-okhsunrog.img"
-default_efi_image="/efi/efi/boot/bootx64.efi"
+default_efi_image="/efi/arch.efi"
 default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 
 #fallback_config="/etc/mkinitcpio.conf"
@@ -80,7 +79,7 @@ USECOLOR=yes" > /etc/vconsole.conf
 echo "Installing additional software..."
 pacman -Syyuu --noconfirm
 #arch repos
-pacman -S sbsigntools brightnessctl lximage-qt wireplumber scrcpy intel-media-sdk openssl openssl-1.0 openssl-1.1 intel-media-driver intel-gpu-tools vulkan-intel libva-utils telegram-desktop vulkan-icd-loader vulkan-tools xorg-xrdb strawberry sof-firmware github-cli docker docker-compose openscad skanlite libvncserver remmina wayvnc exfatprogs nfs-utils tmux screen dex ddcutil i2c-tools archiso thunderbird bluez bluez-utils helvum pacman-contrib smartmontools hdparm wayland-protocols hyphen-en hyphen gnome-keyring libgnome-keyring upower iotop f2fs-tools efitools efibootmgr dosfstools arch-install-scripts ruby-bundler pv alsa-firmware pipewire pipewire-alsa pipewire-jack pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr yt-dlp mc translate-shell nm-connection-editor hunspell hunspell-en_us perl-file-mimeinfo seatd sway swayidle mousepad cups cups-pdf usbutils inkscape go zsh i7z libappindicator-gtk3 lm_sensors stalonetray network-manager-applet ttf-jetbrains-mono gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly tor pigz pbzip2 android-udev libmad opus flac pcmanfm-qt speedtest-cli fzf tree broot lxappearance qt5-wayland noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper rsync cronie wf-recorder imagemagick tk python-pip zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc playerctl libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget ttf-opensans git neofetch pavucontrol grim slurp jq wl-clipboard neofetch android-tools cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm --needed
+pacman -S sbsigntools brightnessctl lximage-qt wireplumber scrcpy intel-media-sdk openssl openssl-1.0 openssl-1.1 intel-media-driver intel-gpu-tools vulkan-intel libva-utils telegram-desktop vulkan-icd-loader vulkan-tools xorg-xrdb strawberry sof-firmware github-cli docker docker-compose openscad skanlite libvncserver remmina wayvnc exfatprogs nfs-utils tmux screen dex ddcutil i2c-tools archiso thunderbird bluez bluez-utils helvum pacman-contrib smartmontools hdparm wayland-protocols hyphen-en hyphen gnome-keyring libgnome-keyring upower iotop f2fs-tools efitools efibootmgr dosfstools arch-install-scripts ruby-bundler pv alsa-firmware pipewire pipewire-alsa pipewire-jack pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr yt-dlp mc translate-shell nm-connection-editor hunspell hunspell-en_us perl-file-mimeinfo seatd sway swayidle mousepad cups cups-pdf usbutils inkscape go zsh i7z libappindicator-gtk3 lm_sensors stalonetray network-manager-applet ttf-jetbrains-mono gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly tor pigz pbzip2 android-udev libmad opus flac pcmanfm-qt speedtest-cli fzf tree broot lxappearance qt5-wayland noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector rsync cronie wf-recorder imagemagick tk python-pip zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc playerctl libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget ttf-opensans git neofetch pavucontrol grim slurp jq wl-clipboard neofetch android-tools cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm --needed
 #chaotic-aur
 pacman -S clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
 #my repos
@@ -165,74 +164,26 @@ git clone https://github.com/zsh-users/zsh-autosuggestions /home/$uname/.oh-my-z
 
 #----------------------------------------
 
+efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch.efi --label "Arch Sway" --unicode
+
+#----------------------------------------
+
+zpool set cachefile=/etc/zfs/zpool.cache zroot
+systemctl enable zfs.target
+systemctl enable zfs-import-cache.service
+systemctl enable zfs-mount.service
+systemctl enable zfs-import.target
+zgenhostid $(hostid)
+mkinitcpio -p linux-okhsunrog
+
+#----------------------------------------
+
 #cp /net/*nmconnection /etc/NetworkManager/system-connections/
 #cp /net/*conf /etc/wireguard/
 #rm -rf /net
 
 #------------------------------------------
 
-echo '# /etc/anacrontab: configuration file for anacron    
-    
-# See anacron(8) and anacrontab(5) for details.    
-    
-SHELL=/bin/sh    
-PATH=/sbin:/bin:/usr/sbin:/usr/bin    
-# the maximal random delay added to the base delay of the jobs    
-RANDOM_DELAY=5    
-# the jobs will be started during the following hours only    
-START_HOURS_RANGE=0-23    
-    
-#period in days   delay in minutes   job-identifier   command    
-1 3 cron.daily    nice run-parts /etc/cron.daily    
-7 25  cron.weekly   nice run-parts /etc/cron.weekly    
-@monthly 45 cron.monthly    nice run-parts /etc/cron.monthly    
-' > /etc/anacrontab
-
-echo '#!/bin/sh
-
-#
-# paranoia settings
-#
-umask 022
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
-export PATH
-
-
-SNAPPER_CONFIGS="root home"
-
-#
-# run snapper for all configs
-#
-for CONFIG in $SNAPPER_CONFIGS ; do
-
-    TIMELINE_CREATE="no"
-    NUMBER_CLEANUP="no"
-    TIMELINE_CLEANUP="no"
-    EMPTY_PRE_POST_CLEANUP="no"
-    
-    . /etc/snapper/configs/$CONFIG
-
-    if [ "$TIMELINE_CREATE" = "yes" ] ; then
-	snapper --config=$CONFIG --quiet create --description="timeline" --cleanup-algorithm="timeline"
-    fi
-
-    if [ "$NUMBER_CLEANUP" = "yes" ] ; then
-	snapper --config=$CONFIG --quiet cleanup number
-    fi
-
-    if [ "$TIMELINE_CLEANUP" = "yes" ] ; then
-	snapper --config=$CONFIG --quiet cleanup timeline
-    fi
-
-    if [ "$EMPTY_PRE_POST_CLEANUP" = "yes" ] ; then
-	snapper --config=$CONFIG --quiet cleanup empty-pre-post
-    fi
-
-done
-
-exit 0' > /etc/cron.hourly/snapper
-
-#---------------------------------------
 sed -i "s?export GRIM_DEFAULT_DIR=/home/username/Pictures/screenshots?export GRIM_DEFAULT_DIR=/home/$uname/Pictures/screenshots?g" /.zprofile
 sed -i "s?export ZSH=\"/home/username/.oh-my-zsh\"?export ZSH=\"/home/$uname/.oh-my-zsh\"?g" /.zshrc
 sed -i "s?path+=('/home/username/.local/bin')?path+=('/home/""$uname""/.local/bin')?g" /.zshrc
