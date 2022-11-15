@@ -89,20 +89,18 @@ zpool create -f -o ashift=12         \
              -O devices=off            \
              -R /mnt/install           \
              -O compression=zstd       \
-             rpool /dev/disk/by-partlabel/roopart
+             zroot /dev/disk/by-partlabel/roopart
 sync
-zfs create \
- -o canmount=off \
- -o mountpoint=none \
- -o encryption=on \
- -o keylocation=prompt \
- -o keyformat=passphrase \
- rpool/archlinux
-zfs create -o canmount=on -o mountpoint=/     rpool/archlinux/root
-zfs create -o canmount=on -o mountpoint=/home rpool/archlinux/home
-zfs create -o canmount=off -o mountpoint=/var  rpool/archlinux/var
-zfs create -o canmount=on  rpool/archlinux/var/lib
-zfs create -o canmount=on  rpool/archlinux/var/log
+zfs create -o mountpoint=none zroot/data
+zfs create -o mountpoint=none zroot/ROOT
+zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default
+zfs create -o mountpoint=/home zroot/data/home
+zfs export zroot
+zpool import -d /dev/disk/by-partlabel/roopart -R /mnt/install zroot -N
+zfs mount zroot/ROOT/default
+zfs mount -a
+zpool set cachefile=/etc/zfs/zpool.cache zroot
+cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 
 #------------------------------
 
@@ -136,12 +134,12 @@ cp .z2 /mnt/install/.zprofile
 chmod +x /mnt/install/after_install.sh
 chmod +x /mnt/install/s_part.sh
 arch-chroot /mnt/install ./s_part.sh
-rm /mnt/install/s_part.sh
+#rm /mnt/install/s_part.sh
 sleep 1
 echo "All done! Attemping unmount..."
 
 sync
-umount -R /mnt/install
-sync
+#umount -R /mnt/install
+#sync
 
 echo "You may now reboot."
