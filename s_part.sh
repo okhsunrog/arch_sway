@@ -38,7 +38,7 @@ SigLevel = Never
 Server = https://okhsunrog.ru/repos/$repo' >> /etc/pacman.conf
 pacman -Syyuu
 
-pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers --noconfirm
+pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers zfs-utils-okhsunrog --noconfirm
 
 #--------------------
 mkdir -p /efi/efi/boot

@@ -87,36 +87,25 @@ zpool create -f -o ashift=12         \
              -O mountpoint=none        \
              -O canmount=off           \
              -O devices=off            \
-             -R /mnt                   \
+             -R /mnt/install           \
              -O compression=zstd       \
-             zroot $_drive
+             rpool $_drive-part2
 sync
+zfs create \
+ -o canmount=off \
+ -o mountpoint=none \
+ -o encryption=on \
+ -o keylocation=prompt \
+ -o keyformat=passphrase \
+ rpool/archlinux
+zfs create -o canmount=on -o mountpoint=/     rpool/archlinux/root
+zfs create -o canmount=on -o mountpoint=/home rpool/archlinux/home
+zfs create -o canmount=off -o mountpoint=/var  rpool/archlinux/var
+zfs create -o canmount=on  rpool/archlinux/var/lib
+zfs create -o canmount=on  rpool/archlinux/var/log
 
-exit
 #------------------------------
 
-o=X-mount.mkdir,ssd,discard=async,noatime
-mkdir -p /mnt/install
-mount LABEL=system /mnt/install
-btrfs subvolume create /mnt/install/@
-btrfs subvolume create /mnt/install/@home
-btrfs subvolume create /mnt/install/@swap
-btrfs subvolume create /mnt/install/@snapshots_root
-btrfs subvolume create /mnt/install/@snapshots_home
-btrfs subvolume create /mnt/install/@log
-btrfs subvolume create /mnt/install/@vm
-btrfs subvolume create /mnt/install/@cache
-btrfs subvolume create /mnt/install/@docker
-umount -R /mnt/install
-mount -o subvol=@,$o LABEL=system /mnt/install
-mount -o subvol=@home,$o LABEL=system /mnt/install/home
-mount -o subvol=@swap,$o LABEL=system /mnt/install/swap
-mount -o subvol=@snapshots_home,$o LABEL=system /mnt/install/home/.snapshots
-mount -o subvol=@snapshots_root,$o LABEL=system /mnt/install/.snapshots
-mount -o subvol=@log,$o LABEL=system /mnt/install/var/log
-mount -o subvol=@vm,$o LABEL=system /mnt/install/vm
-mount -o subvol=@cache,$o LABEL=system /mnt/install/var/cache
-mount -o subvol=@docker,$o LABEL=system /mnt/install/var/lib/docker
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
 mkdir /mnt/install/etc
 genfstab -L /mnt/install > /mnt/install/etc/fstab
