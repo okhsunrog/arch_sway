@@ -5,7 +5,7 @@ pkill udisksd
 
 rmmod pcspkr
 
-_drive=/dev/disk/by-id/$1
+_drive=$1
 ping -c 1 archlinux.org || { echo "No internet connection!"; exit; }
 
 if [[ $EUID -ne 0 ]]; then    
@@ -16,7 +16,7 @@ fi
 # make sure drive exists    
 if [[ ! -b "${_drive}" ]]; then    
     echo "Block device ${_drive} not found, or is not a block device!" 2>&1    
-    echo "Usage: ${0} disk_id" 2>&1             
+    echo "Usage: ${0} disk_path" 2>&1             
     exit 1    
 fi
 
@@ -89,7 +89,7 @@ zpool create -f -o ashift=12         \
              -O devices=off            \
              -R /mnt/install           \
              -O compression=zstd       \
-             rpool $_drive-part2
+             rpool /dev/disk/by-partlabel/roopart
 sync
 zfs create \
  -o canmount=off \
