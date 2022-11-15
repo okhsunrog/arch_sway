@@ -170,10 +170,16 @@ efibootmgr -D
 #----------------------------------------
 
 zpool set cachefile=/etc/zfs/zpool.cache zroot
-systemctl enable zfs.target
 systemctl enable zfs-import-cache.service
-systemctl enable zfs-mount.service
 systemctl enable zfs-import.target
+mkdir -p /etc/zfs/zfs-list.cache
+systemctl enable zfs.target
+systemctl enable --now zfs-zed.service
+touch /etc/zfs/zfs-list.cache/zroot
+sleep 1
+zfs set canmount=off zroot/data/home
+sleep 1
+zfs set canmount=on zroot/data/home
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 
