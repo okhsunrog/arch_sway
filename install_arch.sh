@@ -54,7 +54,7 @@ y
 n
 1
 
-+200M
++500M
 ef00
 c
 EFI
@@ -86,6 +86,9 @@ zpool create -f -o ashift=12         \
              -O devices=off            \
              -R /mnt/install           \
              -O compression=zstd       \
+						 -O encryption=aes-256-gcm \
+             -O keyformat=passphrase   \
+             -O keylocation=prompt     \
              zroot /dev/disk/by-partlabel/rootpart
 sync
 zfs create -o mountpoint=none zroot/data
@@ -94,6 +97,7 @@ zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default
 zfs create -o mountpoint=/home zroot/data/home
 zpool export zroot
 zpool import -d /dev/disk/by-partlabel/rootpart -R /mnt/install zroot -N
+zfs load-key zroot
 zfs mount zroot/ROOT/default
 zfs mount -a
 zpool set cachefile=/etc/zfs/zpool.cache zroot
