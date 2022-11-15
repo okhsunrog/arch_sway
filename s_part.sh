@@ -251,7 +251,7 @@ chmod 744 /root/.zshrc
 mv /.zprofile /home/$uname/
 mv snapper /home/$uname/
 chown -R $uname:$uname /home/$uname
-chown -R $uname:$uname /vm
+#chown -R $uname:$uname /vm
 chmod +x /home/$uname/.local/bin/*
 mkdir /media
 
