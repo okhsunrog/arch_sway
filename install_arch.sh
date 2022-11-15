@@ -6,7 +6,7 @@ pkill udisksd
 rmmod pcspkr
 
 _drive=$1
-ping -c 2 archlinux.org || { echo "No internet connection!"; exit; }
+ping -c 1 archlinux.org || { echo "No internet connection!"; exit; }
 
 if [[ $EUID -ne 0 ]]; then    
     echo "You must be a root user to run this." 2>&1    
@@ -45,7 +45,6 @@ read -p "Enter hostname: " hsname
 #------------------------
 
 timedatectl set-ntp true
-reflector --verbose --sort rate --protocol https --country Russia --age 12 --save /etc/pacman.d/mirrorlist
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
 #-------------------------
