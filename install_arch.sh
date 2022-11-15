@@ -45,6 +45,8 @@ read -p "Enter hostname: " hsname
 #------------------------
 
 timedatectl set-ntp true
+reflector --verbose --sort rate --protocol https --country Russia --age 3 --save /etc/pacman.d/mirrorlist
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
 #-------------------------
 
@@ -57,7 +59,7 @@ y
 n
 1
 
-+300M
++200M
 ef00
 c
 EFI
