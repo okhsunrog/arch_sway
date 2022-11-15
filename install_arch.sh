@@ -107,7 +107,7 @@ cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
 genfstab -L /mnt/install > /mnt/install/etc/fstab
-pacstrap /mnt/install base base-devel linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
+pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
 
 #-----------------------------
 
