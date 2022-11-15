@@ -5,7 +5,7 @@ pkill udisksd
 
 rmmod pcspkr
 
-_drive=$1
+_drive=/dev/disk/by-id/$1
 ping -c 1 archlinux.org || { echo "No internet connection!"; exit; }
 
 if [[ $EUID -ne 0 ]]; then    
@@ -16,14 +16,13 @@ fi
 # make sure drive exists    
 if [[ ! -b "${_drive}" ]]; then    
     echo "Block device ${_drive} not found, or is not a block device!" 2>&1    
-    echo "Usage: ${0} /dev/sdX" 2>&1             
+    echo "Usage: ${0} disk_id" 2>&1             
     exit 1    
 fi
 
 #-------------------------------------------------
 
 umount -R /mnt/install
-cryptsetup close cryptroot
 umount ${_drive} &> /dev/null
 umount ${_drive}p1 &> /dev/null
 umount ${_drive}p2 &> /dev/null
@@ -66,10 +65,10 @@ n
 2
 
 
-
+bf00
 c
 2
-cryptsystem
+rootpart
 w
 y
 EOF
@@ -78,11 +77,22 @@ partprobe $_drive
 sync
 sleep 3
 mkfs.fat -I -F32 -n EFI /dev/disk/by-partlabel/EFI
-cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
-cryptsetup open /dev/disk/by-partlabel/cryptsystem cryptroot
-mkfs.btrfs -f -L system /dev/mapper/cryptroot
+zpool create -f -o ashift=12         \
+             -O acltype=posixacl       \
+             -O relatime=on            \
+             -O xattr=sa               \
+						 -o autotrim=on						 \
+             -O dnodesize=auto         \
+             -O normalization=formD    \
+             -O mountpoint=none        \
+             -O canmount=off           \
+             -O devices=off            \
+             -R /mnt                   \
+             -O compression=zstd       \
+             zroot $_drive
 sync
 
+exit
 #------------------------------
 
 o=X-mount.mkdir,ssd,discard=async,noatime
