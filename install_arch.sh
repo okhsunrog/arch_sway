@@ -99,6 +99,8 @@ zfs create -o mountpoint=/var -o canmount=off     zroot/var
 zfs create                                        zroot/var/log
 zfs create -o mountpoint=/var/lib -o canmount=off zroot/var/lib
 zfs create                                        zroot/var/lib/libvirt
+zfs create																				zroot/var/lib/AccountsService
+zfs create																				zroot/var/lib/NetworkManager
 zfs create                                        zroot/var/lib/docker
 zfs create                                        zroot/var/cache
 zfs create                                        zroot/vm
