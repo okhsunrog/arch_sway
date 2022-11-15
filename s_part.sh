@@ -165,6 +165,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions /home/$uname/.oh-my-z
 #----------------------------------------
 
 efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch.efi --label "Arch Sway" --unicode
+efibootmgr -D
 
 #----------------------------------------
 

@@ -6,6 +6,7 @@ pkill udisksd
 rmmod pcspkr
 
 _drive=$1
+hsname="${2:-archzfs}"
 ping -c 1 archlinux.org || { echo "No internet connection!"; exit; }
 
 if [[ $EUID -ne 0 ]]; then    
@@ -38,10 +39,6 @@ umount ${_drive}4 &> /dev/null
 set -e
 
 #--------------------------------------------------
-
-read -p "Enter hostname: " hsname
-
-#------------------------
 
 timedatectl set-ntp true
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
@@ -106,8 +103,10 @@ cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 #------------------------------
 
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
-genfstab -L /mnt/install > /mnt/install/etc/fstab
-pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware btrfs-progs intel-ucode man-db man-pages neovim networkmanager
+#genfstab -L /mnt/install > /mnt/install/etc/fstab
+echo "LABEL=EFI           	/efi     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+" > /mnt/install/etc/fstab
+pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware intel-ucode man-db man-pages neovim networkmanager
 
 #-----------------------------
 
@@ -134,12 +133,13 @@ cp .z2 /mnt/install/.zprofile
 chmod +x /mnt/install/after_install.sh
 chmod +x /mnt/install/s_part.sh
 arch-chroot /mnt/install ./s_part.sh
-#rm /mnt/install/s_part.sh
+rm /mnt/install/s_part.sh
 sleep 1
 echo "All done! Attemping unmount..."
 
 sync
-#umount -R /mnt/install
-#sync
+umount /mnt/install/efi
+zfs umount -a
+zpool export zroot
 
 echo "You may now reboot."
