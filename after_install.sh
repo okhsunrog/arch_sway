@@ -4,7 +4,7 @@ mkdir Videos/records
 broot --install
 echo "Stay near the pc, you will have to enter root password for a few times"
 echo "Updating mirrors"
-sudo reflector --verbose --sort rate --protocol https --country Russia --age 3 --save /etc/pacman.d/mirrorlist
+sudo reflector --verbose --sort rate --protocol https --country Russia --age 12 --save /etc/pacman.d/mirrorlist
 echo "Setting timezone and time sync..."
 sudo timedatectl set-ntp true --no-ask-password
 sudo timedatectl set-timezone Europe/Moscow --no-ask-password
