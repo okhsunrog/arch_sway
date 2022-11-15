@@ -89,14 +89,14 @@ zpool create -f -o ashift=12         \
              -O devices=off            \
              -R /mnt/install           \
              -O compression=zstd       \
-             zroot /dev/disk/by-partlabel/roopart
+             zroot /dev/disk/by-partlabel/rootpart
 sync
 zfs create -o mountpoint=none zroot/data
 zfs create -o mountpoint=none zroot/ROOT
 zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default
 zfs create -o mountpoint=/home zroot/data/home
 zfs export zroot
-zpool import -d /dev/disk/by-partlabel/roopart -R /mnt/install zroot -N
+zpool import -d /dev/disk/by-partlabel/rootpart -R /mnt/install zroot -N
 zfs mount zroot/ROOT/default
 zfs mount -a
 zpool set cachefile=/etc/zfs/zpool.cache zroot
