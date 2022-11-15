@@ -174,12 +174,15 @@ systemctl enable zfs-import-cache.service
 systemctl enable zfs-import.target
 mkdir -p /etc/zfs/zfs-list.cache
 systemctl enable zfs.target
-systemctl enable --now zfs-zed.service
+systemctl enable zfs-zed.service
+zed -F &
 touch /etc/zfs/zfs-list.cache/zroot
 sleep 1
 zfs set canmount=off zroot/data/home
 sleep 1
 zfs set canmount=on zroot/data/home
+pkill zed
+sed -Ei "s|/mnt/install/?|/|" /etc/zfs/zfs-list.cache/*
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 
