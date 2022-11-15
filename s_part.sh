@@ -41,7 +41,7 @@ pacman -Syyuu
 pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers --noconfirm
 
 #--------------------
-mkdir -p /efi/boot
+mkdir -p /efi/efi/boot
 echo 'MODULES=""
 BINARIES=""
 FILES=""
@@ -55,7 +55,7 @@ ALL_microcode="/boot/*-ucode.img"
 PRESETS=('default')
 
 default_image="/boot/initramfs-linux-okhsunrog.img"
-default_efi_image="/efi/boot/bootx64.efi"
+default_efi_image="/efi/efi/boot/bootx64.efi"
 default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 
 #fallback_config="/etc/mkinitcpio.conf"
