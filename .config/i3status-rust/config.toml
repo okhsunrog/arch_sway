@@ -30,6 +30,9 @@ format = "{average}"
 chip = "*-isa-*"
 
 [[block]]
+block = "backlight"
+
+[[block]]
 block = "sound"
 on_click = "pavucontrol"
 step_width = 1
@@ -38,7 +41,7 @@ device_kind = "sink"
 [[block]]
 block = "networkmanager"
 on_click = "footclient --app-id=nmtui --title='Network configuration' nmtui"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+", "veth[0-9a-f]"]
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+", "veth[0-9a-f]", "laplocal*"]
 interface_name_include = []
 device_format = "{icon}{ap}"
 
