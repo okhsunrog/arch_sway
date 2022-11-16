@@ -158,6 +158,8 @@ sleep 1
 zfs mount zroot/ROOT/default
 sed -Ei "s|/mnt/install/?|/|" /mnt/install/etc/zfs/zfs-list.cache/zroot
 zfs umount zroot/ROOT/default
+zfs snapshot zroot/ROOT/default@install
+zfs snapshot zroot/data/home@install
 zpool export zroot
 
 echo "You may now reboot."
