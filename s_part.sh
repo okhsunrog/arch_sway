@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+mkdir /mnt/nfs
 locale-gen
 hwclock --systohc
 sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
