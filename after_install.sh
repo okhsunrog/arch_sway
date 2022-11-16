@@ -8,7 +8,10 @@ sudo reflector --verbose --sort rate --protocol https --country Russia --age 12 
 echo "Setting timezone and time sync..."
 sudo timedatectl set-ntp true --no-ask-password
 sudo timedatectl set-timezone Europe/Moscow --no-ask-password
-
+if [ $USER -eq 'okhsunrog' ]; then
+    git config --global user.name "okhsunrog"
+    git config --global user.email  "me@okhsunrog.ru"
+fi
 #---------------------------------------------
 
 #sudo mkdir /opt/{idea,pycharm,clion}
