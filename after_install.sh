@@ -8,6 +8,10 @@ sudo reflector --verbose --sort rate --protocol https --country Russia --age 12 
 echo "Setting timezone and time sync..."
 sudo timedatectl set-ntp true --no-ask-password
 sudo timedatectl set-timezone Europe/Moscow --no-ask-password
+echo "[zram0]
+zram-size = ram / 2" | sudo tee /etc/systemd/zram-generator.conf
+sudo systemctl daemon-reload
+sudo systemctl start /dev/zram0
 if [ $USER = 'okhsunrog' ]; then
     git config --global user.name "okhsunrog"
     git config --global user.email  "me@okhsunrog.ru"
