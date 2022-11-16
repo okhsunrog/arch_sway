@@ -84,7 +84,7 @@ pacman -S qutebrowser sbsigntools brightnessctl lximage-qt wireplumber scrcpy in
 pacman -S clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
 #my repos
 pacman -Rnsdd xdg-utils --noconfirm
-pacman -S sbkeys sbupdate-git atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd swaylock-effects-git sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog wlogout-git wlr-sunclock-git xdg-utils-mimeo zsh-vi-mode-git --noconfirm --needed
+pacman -S sbkeys sbupdate-git atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd swaylock-effects-git sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog wlogout-git xdg-utils-mimeo zsh-vi-mode-git --noconfirm --needed
 
 #------------------------------------------
 
