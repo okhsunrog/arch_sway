@@ -103,7 +103,7 @@ zfs create																				zroot/var/lib/AccountsService
 zfs create																				zroot/var/lib/NetworkManager
 zfs create                                        zroot/var/lib/docker
 zfs create                                        zroot/var/cache
-zfs create                                        zroot/vm
+zfs create -o mountpoint=/vm                      zroot/vm
 zpool export zroot
 zpool import -d /dev/disk/by-partlabel/rootpart -R /mnt/install zroot -N
 zfs load-key zroot

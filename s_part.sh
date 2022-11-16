@@ -99,6 +99,7 @@ read -p "Enter $uname password: "$'\n' -s upass
 echo "$upass
 $upass" | passwd $uname
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers
+chown -R $uname:$uname /vm
 #echo "ALL ALL = (root) NOPASSWD: /usr/bin/hdparm" >> /etc/sudoers
 
 #----------------------------------------
@@ -164,9 +165,9 @@ systemctl enable zfs-zed.service
 touch /etc/zfs/zfs-list.cache/zroot
 zed -F &
 sleep 1
-zfs set canmount=off zroot/data/home
+zfs set canmount=off zroot/vm
 sleep 1
-zfs set canmount=on zroot/data/home
+zfs set canmount=on zroot/vm
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 
@@ -196,7 +197,6 @@ chmod 744 /root/.zshrc
 mv /.zprofile /home/$uname/
 mv snapper /home/$uname/
 chown -R $uname:$uname /home/$uname
-#chown -R $uname:$uname /vm
 chmod +x /home/$uname/.local/bin/*
 mkdir /media
 
