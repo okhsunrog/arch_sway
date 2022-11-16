@@ -1,6 +1,7 @@
 fallback = ''
 
 [matching]
+'org.qutebrowser.qutebrowser' = ''
 'Mattermost' = ''
 'tiny' = ''
 'ghb' = ''
