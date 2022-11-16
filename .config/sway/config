@@ -15,15 +15,6 @@ exec xrdb -load ~/.Xresources
 
 set $gnome-schema org.gnome.desktop.interface
 
-exec wlr-sunclock \
-   --margins "0,16,0,16" \
-   --width 300 \
-   --layer bottom \
-   --anchors br \
-   --border-width 2 \
-   --colour-ocean "#002B36" \
-   --colour-land "#2AA198"
-
 exec_always {
     gsettings set $gnome-schema gtk-theme NumixSolarizedDarkCyan
     gsettings set $gnome-schema icon-theme Numix
@@ -31,32 +22,9 @@ exec_always {
 
 #Output configuration
 output eDP-1 {
-	res 1920x1080@60.020Hz
-	background /home/$USER/Pictures/Wallpapers/desktop.png fill
-	pos 0 0
 	scale 1.5
+	background  /home/okhsunrog/Pictures/Wallpapers/desktop.png fill
 }
-
-output HDMI-A-1 {
-        background /home/$USER/Pictures/Wallpapers/desktop.png fill
-	pos 1280 0
-}
-
-output "Unknown Redmi Monitor 2804800519652" res 1920x1080@74.986Hz
-
-#Position of workspaces
-
-
-workspace 1 output HDMI-A-1
-workspace 2 output HDMI-A-1
-workspace 3 output HDMI-A-1
-workspace 4 output HDMI-A-1
-workspace 5 output HDMI-A-1
-workspace 6 output eDP-1
-workspace 7 output eDP-1
-workspace 8 output eDP-1
-workspace 9 output eDP-1
-workspace 10 output eDP-1
 
 input "1739:52599:SYNA308F:00_06CB:CD77_Touchpad" {
   tap enabled
