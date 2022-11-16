@@ -182,8 +182,6 @@ sleep 1
 zfs set canmount=off zroot/data/home
 sleep 1
 zfs set canmount=on zroot/data/home
-PID_ZED=`pidof zed`
-kill $PID_ZED
 sed -Ei "s|/mnt/install/?|/|" /etc/zfs/zfs-list.cache/*
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
