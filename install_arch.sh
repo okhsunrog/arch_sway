@@ -81,7 +81,7 @@ zpool create -f -o ashift=12         \
 						 -o autotrim=on						 \
              -O dnodesize=auto         \
              -O normalization=formD    \
-             -O mountpoint=/           \
+             -O mountpoint=none        \
              -O canmount=off           \
              -O devices=off            \
              -R /mnt/install           \

@@ -176,8 +176,8 @@ systemctl enable zfs-import.target
 mkdir -p /etc/zfs/zfs-list.cache
 systemctl enable zfs.target
 systemctl enable zfs-zed.service
-zed -F &
 touch /etc/zfs/zfs-list.cache/zroot
+zed -F &
 sleep 1
 zfs set canmount=off zroot/data/home
 sleep 1
