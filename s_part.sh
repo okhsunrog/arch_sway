@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 locale-gen
 hwclock --systohc
@@ -142,20 +141,6 @@ systemctl enable earlyoom
 
 #------------------------------------------
 
-#swsizeG=4
-#echo "Creating swap file..."
-#swsize=$((swsizeG*1024))
-#truncate -s 0 /swap/swapfile
-#chattr +C /swap/swapfile
-#btrfs property set /swap/swapfile compression none
-#dd if=/dev/zero of=/swap/swapfile bs=1M count=$swsize status=progress
-#chmod 600 /swap/swapfile
-#mkswap /swap/swapfile
-#swapon /swap/swapfile
-#echo "/swap/swapfile          none            swap            defaults        0 0" >> /etc/fstab
-
-#---------------------------------
-
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 mv install.sh /home/$uname/
 su - $uname -c 'sh install.sh --unattended'
@@ -182,7 +167,6 @@ sleep 1
 zfs set canmount=off zroot/data/home
 sleep 1
 zfs set canmount=on zroot/data/home
-sed -Ei "s|/mnt/install/?|/|" /etc/zfs/zfs-list.cache/zroot
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 

@@ -153,6 +153,10 @@ echo "All done! Attemping unmount..."
 sync
 umount /mnt/install/efi
 zfs umount -a
+sleep 1
+zfs mount zroot/ROOT/default
+sed -Ei "s|/mnt/install/?|/|" /mnt/install/etc/zfs/zfs-list.cache/zroot
+zfs umount -a
 zpool export zroot
 
 echo "You may now reboot."
