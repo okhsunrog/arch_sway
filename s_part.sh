@@ -182,7 +182,7 @@ sleep 1
 zfs set canmount=off zroot/data/home
 sleep 1
 zfs set canmount=on zroot/data/home
-sed -Ei "s|/mnt/install/?|/|" /etc/zfs/zfs-list.cache/*
+sed -Ei "s|/mnt/install/?|/|" /etc/zfs/zfs-list.cache/zroot
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 

@@ -81,7 +81,7 @@ zpool create -f -o ashift=12         \
 						 -o autotrim=on						 \
              -O dnodesize=auto         \
              -O normalization=formD    \
-             -O mountpoint=none        \
+             -O mountpoint=/           \
              -O canmount=off           \
              -O devices=off            \
              -R /mnt/install           \
@@ -91,8 +91,8 @@ zpool create -f -o ashift=12         \
              -O keylocation=prompt     \
              zroot /dev/disk/by-partlabel/rootpart
 sync
-zfs create -o mountpoint=none zroot/data
-zfs create -o mountpoint=none zroot/ROOT
+zfs create -o canmount=off -o mountpoint=none zroot/data
+zfs create -o canmount=off -o mountpoint=none zroot/ROOT
 zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/default
 zfs create -o mountpoint=/home zroot/data/home
 zfs create -o mountpoint=/var -o canmount=off     zroot/var
