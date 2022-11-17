@@ -79,7 +79,7 @@ partprobe $_drive
 sync
 sleep 3
 mkfs.fat -I -F32 -n EFI /dev/disk/by-partlabel/EFI
-zpool create -f -o ashift=12         \
+zpool create -f -o ashift=13         \
              -O acltype=posixacl       \
              -O relatime=on            \
              -O xattr=sa               \
