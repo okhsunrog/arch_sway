@@ -173,6 +173,22 @@ zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
 
 #----------------------------------------
+#configure pipewire
+
+echo "stream.properties = {
+    resample.quality      = 10
+}
+" > /etc/pipewire/client.conf.d/resampling.conf
+echo "stream.properties = {
+    resample.quality      = 10
+}
+" > /etc/pipewire/pipewire-pulse.conf.d/resampling.conf
+echo "context.properties = {
+    default.clock.allowed-rates = [ 44100 48000 88200 96000 192000 384000 ]
+}
+" > /etc/pipewire/pipewire.conf.d/resample_rates.conf
+
+#-------------------------------------
 
 #cp /net/*nmconnection /etc/NetworkManager/system-connections/
 #cp /net/*conf /etc/wireguard/
