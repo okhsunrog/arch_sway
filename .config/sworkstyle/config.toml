@@ -1,6 +1,7 @@
 fallback = ''
 
 [matching]
+'org.keepassxc.KeePassXC' = ''
 'org.qutebrowser.qutebrowser' = ''
 'Mattermost' = ''
 'tiny' = ''
