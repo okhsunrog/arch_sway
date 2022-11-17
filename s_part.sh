@@ -80,9 +80,9 @@ USECOLOR=yes" > /etc/vconsole.conf
 echo "Installing additional software..."
 pacman -Syyuu --noconfirm
 #arch repos
-pacman -S alsa-utils gtk-layer-shell zram-generator keepassxc qutebrowser sbsigntools brightnessctl lximage-qt wireplumber scrcpy intel-media-sdk openssl openssl-1.0 openssl-1.1 intel-media-driver intel-gpu-tools vulkan-intel libva-utils telegram-desktop vulkan-icd-loader vulkan-tools xorg-xrdb strawberry sof-firmware github-cli docker docker-compose openscad skanlite libvncserver remmina wayvnc exfatprogs nfs-utils tmux screen dex ddcutil i2c-tools archiso thunderbird bluez bluez-utils pacman-contrib smartmontools hdparm wayland-protocols hyphen-en hyphen gnome-keyring libgnome-keyring upower iotop f2fs-tools efitools efibootmgr dosfstools arch-install-scripts ruby-bundler pv alsa-firmware pipewire pipewire-alsa pipewire-jack pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr yt-dlp mc translate-shell nm-connection-editor hunspell hunspell-en_us perl-file-mimeinfo seatd sway swaybg swayidle mousepad cups cups-pdf usbutils inkscape go zsh i7z libappindicator-gtk3 lm_sensors stalonetray network-manager-applet ttf-jetbrains-mono gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly tor pigz pbzip2 android-udev libmad opus flac pcmanfm-qt speedtest-cli fzf tree broot lxappearance qt5-wayland noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector rsync cronie wf-recorder imagemagick tk python-pip zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct qt6ct meson ninja scdoc playerctl libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget ttf-opensans git neofetch pavucontrol grim slurp jq wl-clipboard neofetch android-tools cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm --needed
+pacman -S virtualbox virtualbox-host-dkms virtualbox-guest-iso alsa-utils gtk-layer-shell zram-generator keepassxc qutebrowser sbsigntools brightnessctl lximage-qt wireplumber scrcpy intel-media-sdk openssl openssl-1.0 openssl-1.1 intel-media-driver intel-gpu-tools vulkan-intel libva-utils telegram-desktop vulkan-icd-loader vulkan-tools xorg-xrdb strawberry sof-firmware github-cli docker docker-compose openscad skanlite libvncserver remmina wayvnc exfatprogs nfs-utils tmux screen dex ddcutil i2c-tools archiso thunderbird bluez bluez-utils pacman-contrib smartmontools hdparm wayland-protocols hyphen-en hyphen gnome-keyring libgnome-keyring upower iotop f2fs-tools efitools efibootmgr dosfstools arch-install-scripts ruby-bundler pv alsa-firmware pipewire pipewire-alsa pipewire-jack pipewire-pulse xdg-desktop-portal xdg-desktop-portal-wlr yt-dlp mc translate-shell nm-connection-editor hunspell hunspell-en_us perl-file-mimeinfo seatd sway swaybg swayidle mousepad cups cups-pdf usbutils inkscape go zsh i7z libappindicator-gtk3 lm_sensors stalonetray network-manager-applet ttf-jetbrains-mono gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly tor pigz pbzip2 android-udev libmad opus flac pcmanfm-qt speedtest-cli fzf tree broot lxappearance qt5-wayland noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector rsync cronie wf-recorder imagemagick tk python-pip zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct qt6ct meson ninja scdoc playerctl libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget ttf-opensans git neofetch pavucontrol grim slurp jq wl-clipboard neofetch android-tools cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm --needed
 #chaotic-aur
-pacman -S slack-electron clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
+pacman -S slack-electron virtualbox-ext-oracle clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
 #my repos
 pacman -Rnsdd xdg-utils --noconfirm
 pacman -S sbkeys sbupdate-git atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd swaylock-effects-git sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog wlogout-git xdg-utils-mimeo zsh-vi-mode-git --noconfirm --needed
@@ -95,8 +95,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p "Enter user name: " uname
-useradd -mG wheel,video,uucp,i2c,lock -s /usr/bin/zsh $uname
-useradd -mG wheel,video,uucp,i2c,lock -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,i2c,lock,vboxusers -s /usr/bin/zsh $uname
 echo "$upass
 $upass" | passwd $uname
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers
@@ -121,7 +120,6 @@ session    include      system-local-login
 password   include      system-local-login        
 session    optional     pam_gnome_keyring.so auto_start" >  /etc/pam.d/login
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-#echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 #echo "i2c_dev" > /etc/modules-load.d/i2c.conf
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
 mkdir /etc/systemd/system/getty@tty1.service.d
