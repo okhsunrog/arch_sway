@@ -30,20 +30,6 @@ nvim -c ":PlugInstall"
 
 #--------------------------------------------
 
-sudo mv snapper/snapper /etc/conf.d/
-sudo chown root:root /etc/conf.d/snapper
-sudo chmod 644 /etc/conf.d/snapper
-sudo mv snapper/* /etc/snapper/configs/
-sudo chown root:root /etc/snapper/configs/*
-sudo chmod 640 /etc/snapper/configs/*
-rm -rf snapper
-sudo chmod 750 /.snapshots
-sudo chmod 750 /home/.snapshots
-sudo chmod a+rx /home/.snapshots
-sudo chown :$(whoami) /home/.snapshots
-
-#-----------------------------------
-
 echo '# If running from tty1 start sway
 if [[ "$(tty)" = "/dev/tty1" ]] && [[ -z $DISPLAY ]] ; then
 	eval $(gnome-keyring-daemon --start)
