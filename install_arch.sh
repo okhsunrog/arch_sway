@@ -143,7 +143,6 @@ cp after_install.sh /mnt/install
 cp -r .config /mnt/install
 cp -r .local /mnt/install
 cp -r Wallpapers /mnt/install
-cp -r snapper /mnt/install
 cp .gtkrc-2.0 /mnt/install
 cp .z1 /mnt/install/.zshrc
 cp .z2 /mnt/install/.zprofile
