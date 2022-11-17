@@ -90,12 +90,13 @@ pacman -S sbkeys sbupdate-git atool2-git aria2-fast cava gtk-theme-numix-solariz
 #------------------------------------------
 
 chsh -s $(which zsh)
-read -p "Enter root password: "$'\n' -s rpass
+read -p "Enter root password: " -s rpass
 echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p "Enter user name: " uname
 useradd -mG wheel,video,uucp,i2c,lock,vboxusers -s /usr/bin/zsh $uname
+read -p "Enter $uname password: " -s upass
 echo "$upass
 $upass" | passwd $uname
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers
