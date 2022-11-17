@@ -24,6 +24,10 @@ fi
 #-------------------------------------------------
 
 umount -R /mnt/install
+umount /mnt/install/efi
+zfs umount -a
+zfs umount zroot/ROOT/default
+zpool export zroot
 umount ${_drive} &> /dev/null
 umount ${_drive}p1 &> /dev/null
 umount ${_drive}p2 &> /dev/null
