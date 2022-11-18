@@ -46,7 +46,7 @@ set -e
 
 timedatectl set-ntp true
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-reflector --verbose --sort rate --protocol https --country Russia --country Germany --country Poland --country Netherlands --age 12 --save /etc/pacman.d/mirrorlist
+reflector --verbose --sort rate --protocol https --country Germany,UK,Poland,Netherlands --age 3 --save /etc/pacman.d/mirrorlist
 
 #-------------------------
 
