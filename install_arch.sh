@@ -46,11 +46,7 @@ set -e
 
 timedatectl set-ntp true
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-echo 'Server = https://mirror.yal.sl-chat.ru/archlinux/$repo/os/$arch
-Server = https://mirror.truenetwork.ru/archlinux/$repo/os/$arch
-Server = https://mirror.kamtv.ru/archlinux/$repo/os/$arch
-Server = https://mirror.surf/archlinux/$repo/os/$arch
-' > /etc/pacman.d/mirrorlist
+reflector --verbose --sort rate --protocol https --country Russia --country Germany --country Poland --country Netherlands --age 12 --save /etc/pacman.d/mirrorlist
 
 #-------------------------
 
