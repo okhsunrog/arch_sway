@@ -79,7 +79,7 @@ partprobe $_drive
 sync
 sleep 3
 mkfs.fat -I -F32 -n EFI /dev/disk/by-partlabel/EFI
-zpool create -f -o ashift=13         \
+zpool create -f -o ashift=12         \
              -O acltype=posixacl       \
              -O relatime=on            \
              -O xattr=sa               \
@@ -90,7 +90,7 @@ zpool create -f -o ashift=13         \
              -O canmount=off           \
              -O devices=off            \
              -R /mnt/install           \
-             -O compression=zstd       \
+             -O compression=lz4        \
 						 -O encryption=aes-256-gcm \
              -O keyformat=passphrase   \
              -O keylocation=prompt     \
