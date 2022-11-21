@@ -117,6 +117,7 @@ zfs mount zroot/ROOT/default
 zfs mount -a
 zpool set cachefile=/etc/zfs/zpool.cache zroot
 mkdir -p /mnt/install/etc/zfs/
+mkdir /mnt/install/new_root
 cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 
 #------------------------------
@@ -124,6 +125,8 @@ cp /etc/zfs/zpool.cache /mnt/install/etc/zfs/zpool.cache
 mount -o X-mount.mkdir LABEL=EFI /mnt/install/efi
 #genfstab -L /mnt/install > /mnt/install/etc/fstab
 echo "LABEL=EFI           	/efi     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+/ /new_root none bind 0 0
 " > /mnt/install/etc/fstab
 pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware intel-ucode man-db man-pages neovim networkmanager
 
