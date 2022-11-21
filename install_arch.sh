@@ -83,7 +83,7 @@ zpool create -f -o ashift=12         \
              -O acltype=posixacl       \
              -O relatime=on            \
              -O xattr=sa               \
-						 -o autotrim=on						 \
+	     -o autotrim=on	       \
              -O dnodesize=auto         \
              -O normalization=formD    \
              -O mountpoint=none        \
@@ -91,7 +91,7 @@ zpool create -f -o ashift=12         \
              -O devices=off            \
              -R /mnt/install           \
              -O compression=lz4        \
-						 -O encryption=aes-256-gcm \
+             -O encryption=aes-256-gcm \
              -O keyformat=passphrase   \
              -O keylocation=prompt     \
              zroot /dev/disk/by-partlabel/rootpart
