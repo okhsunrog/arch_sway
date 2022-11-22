@@ -39,7 +39,7 @@ SigLevel = Never
 Server = https://okhsunrog.ru/repos/$repo' >> /etc/pacman.conf
 pacman -Syyuu
 
-pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers zfs-utils-okhsunrog --noconfirm
+pacman -S archlinux-keyring linux-okhsunrog linux-okhsunrog-headers zfs-utils-okhsunrog-git --noconfirm
 
 #--------------------
 echo 'MODULES=""
