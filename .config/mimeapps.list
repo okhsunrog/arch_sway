@@ -1,0 +1,23 @@
+[Default Applications]
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+message/rfc822=userapp-Thunderbird-8GS8V1.desktop;
+text/html=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-8GS8V1.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-8GS8V1.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-UAO9V1.desktop;
+x-scheme-handler/unknown=qutebrowser.desktop;
+application/xhtml+xml=org.qutebrowser.qutebrowser.desktop
+application/xhtml_xml=org.qutebrowser.qutebrowser.desktop
+application/xml=org.qutebrowser.qutebrowser.desktop
+text/xml=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/geo=org.qutebrowser.qutebrowser.desktop
+inode/directory=thunar.desktop
+[Added Associations]
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-8GS8V1.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-8GS8V1.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-9GQNV1.desktop;userapp-Telegram Desktop-UAO9V1.desktop;
+
