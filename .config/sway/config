@@ -15,6 +15,15 @@ exec xrdb -load ~/.Xresources
 
 set $gnome-schema org.gnome.desktop.interface
 
+exec wlr-sunclock \
+   --margins "0,16,0,16" \
+   --width 300 \
+   --layer bottom \
+   --anchors br \
+   --border-width 2 \
+   --colour-ocean "#002B36" \
+   --colour-land "#2AA198"
+
 exec_always {
     gsettings set $gnome-schema gtk-theme NumixSolarizedDarkCyan
     gsettings set $gnome-schema icon-theme Numix
