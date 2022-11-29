@@ -137,8 +137,8 @@ bindsym Print+Control exec $LOC/screenshot_window_clipboard
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
 # respectively.
-#bindsym --to-code $mod+b splith
-#bindsym --to-code $mod+v splitv
+bindsym --to-code $mod+b splith
+bindsym --to-code $mod+v splitv
 
 # Make the current focus fullscreen
 bindsym --to-code $mod+f fullscreen
