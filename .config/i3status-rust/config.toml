@@ -40,7 +40,7 @@ device_kind = "sink"
 
 [[block]]
 block = "networkmanager"
-on_click = "footclient --app-id=nmtui --title='Network configuration' nmtui"
+on_click = "footclient --app-id=nmtui --title='Network configuration' sh -c 'sleep 0.1; nmtui'"
 interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+", "veth[0-9a-f]", "laplocal*"]
 interface_name_include = []
 device_format = "{icon}{ap}"
