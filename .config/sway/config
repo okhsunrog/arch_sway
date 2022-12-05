@@ -12,6 +12,7 @@ exec wl-paste -p -t text --watch clipman store -P --no-persist --histpath="~/.lo
 #exec dex -ae Sway
 #exec $LOC/start_zoom
 exec xrdb -load ~/.Xresources
+#exec way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -29,10 +30,8 @@ exec_always {
     gsettings set $gnome-schema icon-theme Numix
 }
 
-#Output configuration
-output eDP-1 {
-	scale 1.5
-}
+include ~/.config/sway/outputs
+include ~/.config/sway/workspaces
 
 output * background  /home/okhsunrog/Pictures/Wallpapers/desktop.png fill
 
