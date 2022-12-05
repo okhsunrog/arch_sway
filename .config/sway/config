@@ -32,8 +32,9 @@ exec_always {
 #Output configuration
 output eDP-1 {
 	scale 1.5
-	background  /home/okhsunrog/Pictures/Wallpapers/desktop.png fill
 }
+
+output * background  /home/okhsunrog/Pictures/Wallpapers/desktop.png fill
 
 input "1739:52599:SYNA308F:00_06CB:CD77_Touchpad" {
   tap enabled
