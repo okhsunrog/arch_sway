@@ -42,7 +42,7 @@ bindsym --to-code $mod+s exec $LOC/sway-launcher
 bindsym --to-code $mod+a exec $LOC/pick-em-foot
 
 # Lock
-bindsym --to-code $mod+Ctrl+l exec $LOC/lock_off
+bindsym --to-code $mod+Ctrl+l exec $LOC/lock
 
 # Start a terminal
 bindsym --to-code $mod+t exec footclient
