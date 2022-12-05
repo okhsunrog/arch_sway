@@ -95,7 +95,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p "Enter user name: " uname
-useradd -mG wheel,video,uucp,i2c,lock,vboxusers -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,i2c,lock,input,vboxusers -s /usr/bin/zsh $uname
 read -p "Enter $uname password: " -s upass
 echo "$upass
 $upass" | passwd $uname
