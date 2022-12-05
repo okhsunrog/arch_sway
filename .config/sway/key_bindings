@@ -38,6 +38,9 @@ bindsym --to-code $mod+Shift+c exec "clipman clear --all"
 #App launcher
 bindsym --to-code $mod+s exec $LOC/sway-launcher
 
+#Emoji picker
+bindsym --to-code $mod+a exec $LOC/pick-em-foot
+
 # Lock
 bindsym --to-code $mod+Ctrl+l exec $LOC/lock_off
 
