@@ -85,7 +85,7 @@ pacman -S electrum noto-fonts noto-fonts-cjk noto-fonts-extra virtualbox virtual
 pacman -S chromium-widevine slack-electron virtualbox-ext-oracle clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
 #my repos
 pacman -Rnsdd xdg-utils --noconfirm
-pacman -S nwg-displays sway-okhsunrog ivpn python-emoji-fzf-okhsunrog wlr-sunclock-git electrum-ltc atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog ytop-okhsunrog-bin wlogout-git xdg-utils-mimeo zsh-vi-mode-git --noconfirm --needed
+pacman -S zrepl nwg-displays sway-okhsunrog ivpn python-emoji-fzf-okhsunrog wlr-sunclock-git electrum-ltc atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog ytop-okhsunrog-bin wlogout-git xdg-utils-mimeo zsh-vi-mode-git --noconfirm --needed
 
 #------------------------------------------
 
@@ -136,8 +136,9 @@ sed -i 's/#export SAL_USE_VCLPLUGIN=gtk3/export SAL_USE_VCLPLUGIN=gtk3/g' /etc/p
 
 systemctl enable NetworkManager  
 systemctl enable earlyoom
+systemctl enable zrepl
 #systemctl enable sshd
-#systemctl enable docker
+systemctl enable docker
 #systemctl enable nfs-server
 
 #------------------------------------------
@@ -214,4 +215,6 @@ mv /.zprofile /home/$uname/
 chown -R $uname:$uname /home/$uname
 chmod +x /home/$uname/.local/bin/*
 mkdir /media
+mkdir /etc/zrepl
+mv /zrepl.yml /etc/zrepl/
 

@@ -1,0 +1,85 @@
+jobs:
+
+# this job takes care of snapshot creation + pruning
+- name: homebak
+  type: snap
+  filesystems: {
+      "zroot/data/home": true,
+      "zroot/data/root": true
+  }
+  # create snapshots with prefix `zrepl_` every 15 minutes
+  snapshotting:
+    type: periodic
+    interval: 15m
+    prefix: zrepl_
+  pruning:
+    keep:
+    # fade-out scheme for snapshots starting with `zrepl_`
+    # - keep all created in the last hour
+    # - then destroy snapshots such that we keep 24 each 1 hour apart
+    # - then destroy snapshots such that we keep 14 each 1 day apart
+    # - then destroy all older snapshots
+    - type: grid
+      grid: 1x1h(keep=all) | 24x1h | 7x1d
+      regex: "^zrepl_.*"
+    # keep all snapshots that don't have the `zrepl_` prefix
+    - type: regex
+      negate: true
+      regex: "^zrepl_.*"
+
+- name: rootbak
+  type: snap
+  filesystems: {
+      "zroot/ROOT/default": true
+  }
+  # create snapshots with prefix `zrepl_` every 1 hour
+  snapshotting:
+    type: periodic
+    interval: 1h
+    prefix: zrepl_
+  pruning:
+    keep:
+    - type: grid
+      grid: 4x1h | 7x1d
+      regex: "^zrepl_.*"
+    # keep all snapshots that don't have the `zrepl_` prefix
+    - type: regex
+      negate: true
+      regex: "^zrepl_.*"
+
+
+- name: push_to_nas
+  type: push
+  snapshotting:
+    type: manual
+  connect:
+    type: tcp
+    address: "10.44.44.1:8888"
+  filesystems: {
+      "zroot/data/home": true,
+      "zroot/data/root": true
+  }
+  send:
+    encrypted: true
+    embedded_data: true
+    compressed: true
+    large_blocks: true
+  replication:
+    protection:
+      initial: guarantee_resumability
+      incremental: guarantee_incremental
+  pruning:
+    # no-op prune rule on sender (keep all snapshots), job `snapshot` takes care of this
+    keep_sender:
+    - type: regex
+      regex: ".*"
+    # retain 
+    keep_receiver:
+    # longer retention on the backup drive, we have more space there
+    - type: grid
+      grid: 1x1h(keep=all) | 24x1h | 14x1d
+      regex: "^zrepl_.*"
+    # retain all non-zrepl snapshots on the backup drive
+    - type: regex
+      negate: true
+      regex: "^zrepl_.*"
