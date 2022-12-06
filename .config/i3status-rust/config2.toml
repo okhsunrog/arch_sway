@@ -28,8 +28,8 @@ buttons = ["prev", "play", "next"]
 marquee = false
 max_width = 25
 dynamic_width = true
-on_collapsed_click = "deadbeef"
-on_click = "deadbeef"
+on_collapsed_click = "strawberry"
+on_click = "strawberry"
 interface_name_exclude = [".*kdeconnect.*", "JBL_TUNE205BT"]
 
 [[block]]
