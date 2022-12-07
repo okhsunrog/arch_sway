@@ -153,11 +153,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions /home/$uname/.oh-my-z
 
 #----------------------------------------
 
-efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch.efi --label "Arch Sway" --unicode
-efibootmgr -D
-
-#----------------------------------------
-
 zpool set cachefile=/etc/zfs/zpool.cache zroot
 systemctl enable zfs-import-cache.service
 systemctl enable zfs-import.target
@@ -176,6 +171,14 @@ mkinitcpio -p linux-okhsunrog -- --cmdline=/etc/kernel/cmdline_restore --uefi=/e
 cp /efi/arch.efi /efi/arch_bak.efi
 
 #----------------------------------------
+
+efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch_restore.efi --label "Recover Arch Sway" --unicode
+efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch_bak.efi --label "Arch Sway backup kernel" --unicode
+efibootmgr --create --disk /dev/disk/by-partlabel/EFI --loader /arch.efi --label "Arch Sway" --unicode
+efibootmgr -D
+
+#----------------------------------------
+
 #configure pipewire
 
 echo "stream.properties = {
