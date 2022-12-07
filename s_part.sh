@@ -63,6 +63,7 @@ fallback_image="/boot/initramfs-linux-okhsunrog-fallback.img"
 fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
 
 echo "zfs=zroot/ROOT/default fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable rw" > /etc/kernel/cmdline
+echo "zfs=zroot/ROOT/restore fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable rw" > /etc/kernel/cmdline_restore
 rm /boot/initramfs*
 mkinitcpio -p linux-okhsunrog
 
@@ -171,6 +172,8 @@ sleep 1
 zfs set canmount=on zroot/vm
 zgenhostid $(hostid)
 mkinitcpio -p linux-okhsunrog
+mkinitcpio -p linux-okhsunrog -- --cmdline=/etc/kernel/cmdline_restore --uefi=/efi/arch_restore.efi
+cp /efi/arch.efi /efi/arch_bak.efi
 
 #----------------------------------------
 #configure pipewire

@@ -45,6 +45,12 @@ sudo systemctl enable bluetooth
 
 #---------------------------
 
+sudo zfs snapshot zroot/data/home@install
+sudo zfs snapshot zroot/ROOT/default@restore
+sudo zfs clone zroot/ROOT/default@restore zroot/ROOT/restore
+
+#-------------------------
+
 sleep 1
 rm "after_install.sh"
 sleep 1
