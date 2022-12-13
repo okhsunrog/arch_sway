@@ -16,7 +16,13 @@ bindsym --to-code $mod+Shift+n exec $LOC/dismiss_n_a
 bindsym --to-code $mod+n exec $LOC/dismiss_n
 
 #Browser
-bindsym --to-code $mod+z exec firefox
+bindsym --to-code $mod+z exec librewolf
+
+#File manager
+bindsym --to-code $mod+d exec thunar
+
+#wifi toggle
+bindsym --to-code $mod+w exec $LOC/wifi_toggle
 
 #YouTube
 bindsym --to-code $mod+p exec $LOC/play_vid
