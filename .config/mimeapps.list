@@ -1,23 +1,29 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+application/x-fictionbook+xml=org.pwmt.zathura-pdf-mupdf.desktop;
+application/xhtml+xml=librewolf.desktop;
+application/xhtml_xml=librewolf.desktop;
+application/xml=librewolf.desktop;
+inode/directory=thunar.desktop;
 message/rfc822=userapp-Thunderbird-8GS8V1.desktop;
-text/html=org.qutebrowser.qutebrowser.desktop
-x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
-x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+text/html=librewolf.desktop;
+text/xml=librewolf.desktop;
+x-scheme-handler/about=librewolf.desktop;librewolf.desktop;
+x-scheme-handler/geo=librewolf.desktop;
+x-scheme-handler/http=librewolf.desktop;librewolf.desktop;
+x-scheme-handler/https=librewolf.desktop;librewolf.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-8GS8V1.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-8GS8V1.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-UAO9V1.desktop;
-x-scheme-handler/unknown=qutebrowser.desktop;
-application/xhtml+xml=org.qutebrowser.qutebrowser.desktop
-application/xhtml_xml=org.qutebrowser.qutebrowser.desktop
-application/xml=org.qutebrowser.qutebrowser.desktop
-text/xml=org.qutebrowser.qutebrowser.desktop
-x-scheme-handler/geo=org.qutebrowser.qutebrowser.desktop
-inode/directory=thunar.desktop
+x-scheme-handler/unknown=librewolf.desktop;qutebrowser.desktop;
+image/png=imv-folder.desktop
+
 [Added Associations]
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+application/x-compressed-tar=xarchiver.desktop;org.kde.ark.desktop;
+application/x-fictionbook+xml=nvim.desktop;org.xfce.mousepad.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-8GS8V1.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-8GS8V1.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-9GQNV1.desktop;userapp-Telegram Desktop-UAO9V1.desktop;
-
+text/plain=org.xfce.mousepad.desktop;
+image/png=userapp-imv-LV70W1.desktop;userapp-imv-folder-GXCVW1.desktop;imv.desktop;imv-folder.desktop;
