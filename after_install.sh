@@ -32,7 +32,6 @@ nvim -c ":PlugInstall"
 
 echo '# If running from tty1 start sway
 if [[ "$(tty)" = "/dev/tty1" ]] && [[ -z $DISPLAY ]] ; then
-	eval $(gnome-keyring-daemon --start)
   export SSH_AUTH_SOCK
   exec sway
 fi' >> .zprofile
