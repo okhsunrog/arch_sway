@@ -62,7 +62,7 @@ default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 fallback_image="/boot/initramfs-linux-okhsunrog-fallback.img"
 fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
 
-echo "zfs=zroot/ROOT/default fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable rw" > /etc/kernel/cmdline
+echo "zfs=zroot/ROOT/default fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable quiet loglevel=3 rw" > /etc/kernel/cmdline
 echo "zfs=zroot/ROOT/restore fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable rw" > /etc/kernel/cmdline_restore
 rm /boot/initramfs*
 mkinitcpio -p linux-okhsunrog
