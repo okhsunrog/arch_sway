@@ -1,6 +1,8 @@
 #!/bin/bash
+swayidle \
+    timeout 10 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' &
 swaylock \
-	-f \
 	-F \
 	--ring-color B58900 \
 	--key-hl-color 2AA198 \
@@ -9,3 +11,4 @@ swaylock \
 	--separator-color 00000000 \
 	--color 002B36
 
+kill %%
