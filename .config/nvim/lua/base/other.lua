@@ -9,8 +9,6 @@ opt.splitright = true
 opt.splitbelow = true
 
 --[[ Дополнительные настройки ]]--
--- Используем системный буфер обмена
-opt.clipboard = 'unnamedplus'
 
 -- Отключаем дополнение файлов в конце
 opt.fixeol = false
