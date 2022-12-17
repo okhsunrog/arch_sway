@@ -38,7 +38,7 @@ input "1739:52599:SYNA308F:00_06CB:CD77_Touchpad" {
 
 input "1:1:AT_Translated_Set_2_keyboard" {
   xkb_layout "us,ru"
-  xkb_options "grp:toggle,grp:rctrl_toggle,altwin:swap_lalt_lwin"
+	xkb_options "caps:swapescape,grp:toggle,grp:rctrl_toggle,altwin:swap_lalt_lwin"
 }
 
 input "1133:49948:Logitech_USB_Keyboard" {
