@@ -41,6 +41,8 @@ fallback = ''
 'org.qbittorrent.qBittorrent' = ''
 'Google-chrome' = ''
 'Chromium' = ''
+'chromium' = ''
+
 'Slack' = ''
 'Code' = ''
 'code-oss' = ''
