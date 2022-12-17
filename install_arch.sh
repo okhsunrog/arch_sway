@@ -150,6 +150,7 @@ cp .gtkrc-2.0 /mnt/install
 cp .z1 /mnt/install/.zshrc
 cp .z2 /mnt/install/.zprofile
 cp zrepl.yml /mnt/install
+cp nvim.tar.zst /mnt/install
 #cp -r net /mnt/install
 
 chmod +x /mnt/install/after_install.sh

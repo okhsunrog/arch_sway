@@ -1,0 +1,7 @@
+require('base/search')
+require('base/tabs')
+require('base/other')
+require('base/color')
+require('base/vimtex')
+require('keys/main')
+require('plugins/packer_install')

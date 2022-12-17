@@ -218,6 +218,7 @@ mv /.zshrc /home/$uname/
 ln -s /home/$uname/.zshrc /root/.zshrc
 chmod 744 /root/.zshrc
 mv /.zprofile /home/$uname/
+mv /nvim.tar.zst /home/$uname/
 chown -R $uname:$uname /home/$uname
 chmod +x /home/$uname/.local/bin/*
 mkdir /media
