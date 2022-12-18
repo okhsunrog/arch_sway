@@ -208,6 +208,8 @@ sed -i "s?path+=('/home/username/.local/bin')?path+=('/home/""$uname""/.local/bi
 sed -i "s?source /home/username/.config/broot/launcher/bash/br?source /home/$uname/.config/broot/launcher/bash/br?g" /.zshrc
 sed -i "s?include \"/home/username/.gtkrc-2.0.mine\"?include \"/home/$uname/.gtkrc-2.0.mine\"?g" /.gtkrc-2.0
 
+mkdir -p /root/.config
+mkdir -p /root/.local/share
 mkdir -p /home/$uname/Pictures/screenshots
 mv /Wallpapers /home/$uname/Pictures/Wallpapers
 mv /.local /home/$uname/.local
@@ -218,7 +220,15 @@ mv /.zshrc /home/$uname/
 ln -s /home/$uname/.zshrc /root/.zshrc
 chmod 744 /root/.zshrc
 mv /.zprofile /home/$uname/
-mv /nvim.tar.zst /home/$uname/
+mkdir -p /home/$uname/.local/share
+cd /home/$uname/.local/share
+aunpack /nvim.tar.zst
+cd /
+rm /nvim.tar.zst
+mkdir -p /root/.local/share
+mkdir -p /root/.config
+ln -s /home/$uname/.local/share/nvim /root/.local/share/nvim
+ln -s /home/$uname/.config/nvim /root/.config/nvim
 chown -R $uname:$uname /home/$uname
 chmod +x /home/$uname/.local/bin/*
 mkdir /media

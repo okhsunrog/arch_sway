@@ -18,14 +18,6 @@ if [ $USER = 'okhsunrog' ]; then
 fi
 #---------------------------------------------
 
-cd ~/.local/share
-rm -rf nvim
-aunpack ~/nvim.tar.zst
-cd ~
-rm nvim.tar.zst
-
-#---------------------------------------------
-
 #sudo mkdir /opt/{idea,pycharm,clion}
 #sudo curl -L "https://download.jetbrains.com/product?code=IIU&latest&distribution=linux" | sudo tar xvz -C /opt/idea  --strip 1
 #sudo curl -L "https://download.jetbrains.com/product?code=PCP&latest&distribution=linux" | sudo tar xvz -C /opt/pycharm  --strip 1
