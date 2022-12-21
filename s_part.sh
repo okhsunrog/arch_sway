@@ -86,7 +86,7 @@ pacman -S xournalpp kicad kicad-library kicad-library-3d python-kikit python-pcb
 pacman -S anki nerd-fonts-jetbrains-mono swaylock-git librewolf ungoogled-chromium chromium-widevine slack-electron virtualbox-ext-oracle clipman fcft foot i3status-rust libdispatch gimp-git numix-icon-theme-git qt5-styleplugins systray-x-git yay zoom --noconfirm --needed
 #my repos
 pacman -Rnsdd xdg-utils --noconfirm
-pacman -S python-grip openhantek6022-git zrepl sway-okhsunrog ivpn python-emoji-fzf-okhsunrog wlr-sunclock-git electrum-ltc atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog ytop-okhsunrog-bin wlogout-git xdg-utils-mimeo zsh-vi-mode-git way-displays --noconfirm --needed
+pacman -S tabletsettings-okhsunrog-git python-grip openhantek6022-git zrepl sway-okhsunrog ivpn python-emoji-fzf-okhsunrog wlr-sunclock-git electrum-ltc atool2-git aria2-fast cava gtk-theme-numix-solarized-git qt6gtk2-git handbrake-full handbrake-full-cli hunspell-ru-aot hyphen-ru lsix-git mako-no-blur-git mimeo ntfsprogs-ntfs3 puddletag qbittorrent-enhanced-qt5 ranger-sixel ruri swaykbdd sworkstyle throttled-git tiny-irc-client ttf-menlo-powerline-git ttf-ms-win11-okhsunrog ytop-okhsunrog-bin wlogout-git xdg-utils-mimeo zsh-vi-mode-git way-displays --noconfirm --needed
 
 #------------------------------------------
 
