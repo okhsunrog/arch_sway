@@ -56,6 +56,7 @@ bar {
 font pango: Menlo for Powerline, Font Awesome 6 Free 12
     position top
     output HDMI-A-1
+		output DP-2
     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config2.toml
     colors {
         separator #002B36
@@ -93,42 +94,42 @@ client.unfocused #5f5faf #5f5faf #5f5faf
 
 
 #Windows' configuration
-for_window [app_id="floationg-foot"] floating enable
-for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="com.github.wwmm.easyeffects"] floating enable
-for_window [app_id="nmtui"] floating enable
-for_window [title="Device connected - Mozilla Firefox"] floating enable
-for_window [app_id="nvim"] floating enable
-for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
-for_window [title="Picture in picture"] floating enable
-for_window [title="Picture-in-Picture" app_id="firefox"] sticky enable
-for_window [title="Picture in picture"] sticky enable
-for_window [title="win0"] floating enable
-for_window [title="Open Files"] floating enable
-for_window [title="Settings"] floating enable
-for_window [title="Save File"] floating enable
-for_window [title="Copy Files"] floating enable
-for_window [title="Choose Files"] floating enable
-for_window [title="Welcome to PyCharm"] floating enable
-for_window [title="Import PyCharm Settings"] floating enable
-for_window [title="Import CLion Settings"] floating enable
-for_window [title="Import WebStorm Settings"] floating enable
-for_window [title="Welcome to WebStorm"] floating enable
-for_window [class="Skype"] floating enable
-for_window [title="Welcome to CLion"] floating enable
-for_window [title="Import IntelliJ IDEA Settings"] floating enable
-for_window [title="License Activation"] floating enable
-for_window [title="Welcome to IntelliJ IDEA"] floating enable
-for_window [title="Welcome to RubyMine"] floating enable
-for_window [title="Import RubyMine Settings"] floating enable
-for_window [title="discord.com is sharing your screen."] floating enable
-for_window [title="Emulator"] floating enable
-for_window [title="File Properties"] floating enable
-for_window [title="Android Emulator*"] floating enable
+for_window [app_id="^floationg-foot$"] floating enable
+for_window [app_id="^pavucontrol$"] floating enable
+for_window [app_id="^com.github.wwmm.easyeffects$"] floating enable
+for_window [app_id="^nmtui$"] floating enable
+for_window [title="^Device connected - Mozilla Firefox$"] floating enable
+for_window [app_id="^nvim$"] floating enable
+for_window [title="^Picture-in-Picture$" app_id="^firefox$"] floating enable
+for_window [title="^Picture in picture$"] floating enable
+for_window [title="^Picture-in-Picture$" app_id="^firefox$"] sticky enable
+for_window [title="^Picture in picture$"] sticky enable
+for_window [title="^win0$"] floating enable
+for_window [title="^Open Files$"] floating enable
+for_window [title="^Settings$"] floating enable
+for_window [title="^Save File$"] floating enable
+for_window [title="^Copy Files$"] floating enable
+for_window [title="^Choose Files$"] floating enable
+for_window [title="^Welcome to PyCharm$"] floating enable
+for_window [title="^Import PyCharm Settings$"] floating enable
+for_window [title="^Import CLion Settings$"] floating enable
+for_window [title="^Import WebStorm Settings$"] floating enable
+for_window [title="^Welcome to WebStorm$"] floating enable
+for_window [class="^Skype$"] floating enable
+for_window [title="^Welcome to CLion$"] floating enable
+for_window [title="^Import IntelliJ IDEA Settings$"] floating enable
+for_window [title="^License Activation$"] floating enable
+for_window [title="^Welcome to IntelliJ IDEA$"] floating enable
+for_window [title="^Welcome to RubyMine$"] floating enable
+for_window [title="^Import RubyMine Settings$"] floating enable
+for_window [title="^discord.com is sharing your screen.$"] floating enable
+for_window [title="^Emulator$"] floating enable
+for_window [title="^File Properties$"] floating enable
+for_window [title="^Android Emulator*"] floating enable
 for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 40 ppt, border pixel 5
-for_window [app_id="zoom" title="^zoom$"] border none, floating enable
-for_window [app_id="zoom" title="^(Zoom|About)$"] floating enable
-for_window [app_id="zoom" title="Settings"] floating enable
+for_window [app_id="^zoom$" title="^zoom$"] border none, floating enable
+for_window [app_id="^zoom$" title="^(Zoom|About)$"] floating enable
+for_window [app_id="^zoom$" title="^Settings$"] floating enable
 
 
 
