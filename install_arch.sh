@@ -128,7 +128,11 @@ echo "LABEL=EFI           	/efi     	vfat      	rw,relatime,fmask=0022,dmask=002
 
 / /new_root none bind 0 0
 " > /mnt/install/etc/fstab
-pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware intel-ucode man-db man-pages neovim networkmanager
+while	pacstrap /mnt/install base base-devel openssl-1.1 linux-firmware intel-ucode man-db man-pages neovim networkmanager; [[ $? -ne 0 ]];
+do
+	echo "Trying again"
+  sleep 5
+done
 
 #-----------------------------
 
