@@ -77,15 +77,11 @@ echo 'ALL_config="/etc/mkinitcpio.conf"
 ALL_kver="/boot/vmlinuz-linux-okhsunrog"
 ALL_microcode="/boot/*-ucode.img"
 
-PRESETS=('default')
+PRESETS=(default)
 
 default_image="/boot/initramfs-linux-okhsunrog.img"
-default_efi_image="/efi/arch.efi"
-default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
-
-#fallback_config="/etc/mkinitcpio.conf"
-fallback_image="/boot/initramfs-linux-okhsunrog-fallback.img"
-fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
+default_uki="/efi/arch.efi"
+default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"' > /etc/mkinitcpio.d/linux-okhsunrog.preset
 
 echo "zfs=zroot/ROOT/default fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable quiet loglevel=3 rw" > /etc/kernel/cmdline
 echo "zfs=zroot/ROOT/restore fbcon=font:TER16x32 zswap.enabled=0 bgrt_disable rw" > /etc/kernel/cmdline_restore
